@@ -5,10 +5,13 @@ info:
 servers:
     - url: https://rest.websupport.sk/v1
 paths:
+    # Listing of available services
     /order/{market}:
         get:
             summary: List of available services
             description: Retrieves a list of available services and their prices for a specific market.
+            tags:
+              - Listing of available services
             parameters:
                 - name: market
                   in: path
@@ -85,6 +88,8 @@ paths:
         get:
             summary: Service details
             description: Retrieves details of a specific service for a given market.
+            tags:
+              - Listing of available services
             parameters:
                 - name: market
                   in: path
@@ -126,10 +131,14 @@ paths:
                                         description: Currency code
                 "404":
                     description: Not Found
+    
+    # Validating services and loading prices
     /order/{market}/validate:
         post:
             summary: Validate multiple services
             description: Validates multiple services in a single request.
+            tags:
+              - Validating services and loading prices
             requestBody:
                 required: true
                 content:
@@ -186,6 +195,8 @@ paths:
         post:
             summary: Validate credit
             description: Validates order attributes for credit service.
+            tags:
+              - Validating services and loading prices
             requestBody:
                 required: true
                 content:
@@ -252,6 +263,8 @@ paths:
         post:
             summary: Validate a domain
             description: Validates order attributes for a domain.
+            tags:
+              - Validating services and loading prices
             requestBody:
                 required: true
                 content:
@@ -342,6 +355,8 @@ paths:
         post:
             summary: Validate The Hosting service
             description: Validates order attributes for The Hosting service.
+            tags:
+              - Validating services and loading prices
             requestBody:
                 required: true
                 content:
@@ -409,6 +424,8 @@ paths:
         post:
             summary: Validate VPS
             description: Validates order attributes for VPS service.
+            tags:
+              - Validating services and loading prices
             requestBody:
                 required: true
                 content:
@@ -537,112 +554,14 @@ paths:
                                         description: Object containing field-specific error messages
                 "500":
                     description: Internal Server Error
-    /user/{userId}/paymentcard:
-        get:
-            summary: List of all payment cards
-            description: Retrieves the list of all payment cards for the logged-in user.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    items:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                id:
-                                                    type: integer
-                                                    description: Payment card ID
-                                                name:
-                                                    type: string
-                                                    description: Masked payment card number
-                                                defaultBillingId:
-                                                    type: integer
-                                                    description: Default billing ID associated with the payment card
-                                                createTime:
-                                                    type: integer
-                                                    description: Timestamp indicating when the payment card was created
-                                    credit:
-                                        type: integer
-                                        description: User's credit
-                "404":
-                    description: User not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
-    /user/{userId}/paymentcard/{paymentcardId}:
-        get:
-            summary: Get a payment card detail
-            description: Retrieves the details of a payment card by its ID.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: paymentcardId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Payment card ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        description: Payment card ID
-                                    name:
-                                        type: string
-                                        description: Masked payment card number
-                                    defaultBillingId:
-                                        type: integer
-                                        description: Default billing ID associated with the payment card
-                                    createTime:
-                                        type: integer
-                                        description: Timestamp indicating when the payment card was created
-                "404":
-                    description: Payment card not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
+    
+    # Ordering a new service
     /user/{userId}/order:
         post:
             summary: Order services
             description: Orders multiple services.
+            tags:
+              - Ordering a new service
             parameters:
                 - name: userId
                   in: path
@@ -773,10 +692,14 @@ paths:
                                                 description: Error messages for the services in the order
                 "500":
                     description: Internal Server Error
+    
+    # Credit card, internet banking and credit payments
     /user/{userId}/order/{orderId}/pay:
         get:
             summary: Get payment URLs
             description: Retrieves the payment URLs for the specified order.
+            tags:
+              - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -827,6 +750,8 @@ paths:
         put:
             summary: Pay with credit
             description: Pays for the specified order using credit.
+            tags:
+              - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -868,6 +793,8 @@ paths:
         put:
             summary: Pay with a stored card
             description: Pays for the specified order using a stored payment card.
+            tags:
+              - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -911,3 +838,110 @@ paths:
                                     message:
                                         type: string
                                         description: Error message
+    /user/{userId}/paymentcard:
+        get:
+            summary: List of all payment cards
+            description: Retrieves the list of all payment cards for the logged-in user.
+            tags:
+              - Credit card, internet banking and credit payments
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Payment card ID
+                                                name:
+                                                    type: string
+                                                    description: Masked payment card number
+                                                defaultBillingId:
+                                                    type: integer
+                                                    description: Default billing ID associated with the payment card
+                                                createTime:
+                                                    type: integer
+                                                    description: Timestamp indicating when the payment card was created
+                                    credit:
+                                        type: integer
+                                        description: User's credit
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/paymentcard/{paymentcardId}:
+        get:
+            summary: Get a payment card detail
+            description: Retrieves the details of a payment card by its ID.
+            tags:
+              - Credit card, internet banking and credit payments
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: paymentcardId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Payment card ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Payment card ID
+                                    name:
+                                        type: string
+                                        description: Masked payment card number
+                                    defaultBillingId:
+                                        type: integer
+                                        description: Default billing ID associated with the payment card
+                                    createTime:
+                                        type: integer
+                                        description: Timestamp indicating when the payment card was created
+                "404":
+                    description: Payment card not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    

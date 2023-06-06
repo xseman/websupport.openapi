@@ -5,10 +5,13 @@ info:
 servers:
     - url: https://rest.websupport.sk/v1
 paths:
+    # DNS zone management resources
     /user/{userId}/zone:
         get:
             summary: List of all zones
             description: Retrieves a list of all zones.
+            tags:
+              - DNS zone management resources
             parameters:
                 - name: userId
                   in: path
@@ -61,6 +64,8 @@ paths:
         get:
             summary: Get a zone detail
             description: Retrieves the details of a specific zone by its domain name.
+            tags:
+              - DNS zone management resources
             parameters:
                 - name: userId
                   in: path
@@ -104,10 +109,14 @@ paths:
                                     message:
                                         type: string
                                         description: Error message
+    
+    # Record management resources
     /user/{userId}/zone/{domainName}/record:
         get:
             summary: List all records
             description: Retrieves a list of all records for a specific zone.
+            tags:
+              - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -198,6 +207,8 @@ paths:
         post:
             summary: Create a new record
             description: Creates a new DNS record for a specific domain name and zone.
+            tags:
+              - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -394,6 +405,8 @@ paths:
         get:
             summary: Get a record
             description: Retrieves a specific record by its domain name and record ID.
+            tags:
+              - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -473,6 +486,8 @@ paths:
         put:
             summary: Update a record
             description: Updates an existing DNS record for a specific domain name, zone, and record ID.
+            tags:
+              - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -650,6 +665,8 @@ paths:
         delete:
             summary: Delete a record
             description: Deletes an existing DNS record for a specific domain name, zone, and record ID.
+            tags:
+              - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -737,4 +754,3 @@ paths:
                                     message:
                                         type: string
                                         description: Error message
-        

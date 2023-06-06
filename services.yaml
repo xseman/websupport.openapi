@@ -5,10 +5,13 @@ info:
 servers:
     - url: https://rest.websupport.sk/v1
 paths:
+    # Service management
     /user/{userId}/service:
         get:
             summary: List of all services
             description: Retrieves information about all services.
+            tags:
+              - Service management
             parameters:
                 - name: userId
                   in: path
@@ -62,6 +65,8 @@ paths:
         get:
             summary: Get a service detail
             description: Retrieves detailed information about a specific service.
+            tags:
+              - Service management
             parameters:
                 - name: userId
                   in: path
@@ -108,6 +113,8 @@ paths:
         put:
             summary: Update service
             description: Updates the settings of a specific service.
+            tags:
+              - Service management
             parameters:
                 - name: userId
                   in: path

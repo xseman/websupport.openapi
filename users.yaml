@@ -5,10 +5,13 @@ info:
 servers:
     - url: https://rest.websupport.sk/v1
 paths:
+    # User management resources
     /user:
         get:
             summary: List all users
             description: Retrieves a list of all users.
+            tags: 
+                - User management resources
             parameters:
                 - name: page
                   in: query
@@ -61,6 +64,8 @@ paths:
         post:
             summary: Create a new user
             description: Creates a new user account.
+            tags: 
+                - User management resources
             requestBody:
                 required: true
                 content:
@@ -239,6 +244,8 @@ paths:
         get:
             summary: Get user details
             description: Retrieves detailed information about a specific user.
+            tags: 
+                - User management resources
             parameters:
                 - name: userId
                   in: path
@@ -332,6 +339,8 @@ paths:
         put:
             summary: Update user
             description: Updates an existing user account.
+            tags: 
+                - User management resources
             parameters:
                 - name: userId
                   in: path
@@ -440,6 +449,8 @@ paths:
         post:
             summary: Password reset
             description: Resets the password for a user account.
+            tags: 
+                - User management resources
             requestBody:
                 required: true
                 content:
@@ -476,10 +487,14 @@ paths:
                                                 type: array
                                                 items:
                                                     type: string
+    
+    # Billing profile management resources
     /user/{userId}/billing:
         get:
             summary: List of all billing profiles
             description: Retrieves a list of all billing profiles for a user.
+            tags:
+                - Billing profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -557,6 +572,8 @@ paths:
         post:
             summary: Create a new billing profile
             description: Creates a new billing profile for a user.
+            tags:
+                - Billing profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -712,6 +729,8 @@ paths:
         get:
             summary: Get a billing profile detail
             description: Retrieves the details of a billing profile by its ID.
+            tags:
+                - Billing profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -771,6 +790,8 @@ paths:
         put:
             summary: Update billing profile
             description: Updates an existing billing profile.
+            tags:
+                - Billing profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -922,6 +943,8 @@ paths:
         delete:
             summary: Delete billing profile
             description: Deletes a billing profile.
+            tags:
+                - Billing profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -998,10 +1021,14 @@ paths:
                                         type: string
                                     code:
                                         type: integer
+    
+    # Domain profile management resources
     /user/{userId}/domainProfile:
         get:
             summary: List of all domain profiles
             description: Retrieves a list of all domain profiles.
+            tags:
+                - Domain profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -1087,6 +1114,8 @@ paths:
         post:
             summary: Create new domain profile
             description: Creates a new domain profile.
+            tags:
+                - Domain profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -1236,6 +1265,8 @@ paths:
         get:
             summary: Get a domain profile
             description: Retrieves a domain profile by ID.
+            tags:
+                - Domain profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -1313,6 +1344,8 @@ paths:
         put:
             summary: Update domain profile
             description: Updates a domain profile by ID.
+            tags:
+                - Domain profile management resources
             parameters:
                 - name: userId
                   in: path
@@ -1434,6 +1467,8 @@ paths:
         delete:
             summary: Delete domain profile
             description: Deletes a domain profile by ID.
+            tags:
+                - Domain profile management resources
             parameters:
                 - name: userId
                   in: path

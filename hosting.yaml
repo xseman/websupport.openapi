@@ -5,10 +5,13 @@ info:
 servers:
     - url: https://rest.websupport.sk/v1
 paths:
+    # Hosting management resources
     /user/{userId}/hosting:
         get:
             summary: List of all hostings
             description: Retrieves a list of all hostings for a specific user.
+            tags:
+                - Hosting management resources
             parameters:
                 - name: userId
                   in: path
@@ -79,6 +82,8 @@ paths:
         get:
             summary: Get a hosting detail
             description: Retrieves details of a specific hosting by service ID or UUID.
+            tags:
+                - Hosting management resources
             parameters:
                 - name: userId
                   in: path
@@ -122,10 +127,415 @@ paths:
                                     message:
                                         type: string
                                         description: Error message
+    
+    # Webhosting domains
+    /user/{userId}/hosting/{hostingId}/vhost:
+        get:
+            summary: List of all webhosting domains (vhosts)
+            description: Retrieves a list of all webhosting domains (vhosts) for a specific hosting.
+            tags: 
+                - Webhosting domains
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Domain ID
+                                                domain:
+                                                    type: string
+                                                    description: Domain name
+                                                sub:
+                                                    type: string
+                                                    description: Subdomain
+                                                webOnStorage:
+                                                    type: string
+                                                    description: Web on storage
+                                                subOnStorage:
+                                                    type: string
+                                                    description: Subdomain on storage
+                                                logsOnStorage:
+                                                    type: string
+                                                    description: Logs on storage
+                                                disabled:
+                                                    type: boolean
+                                                    description: Indicates if the vhost is disabled
+                                                keepAliveOff:
+                                                    type: boolean
+                                                    description: Indicates if keep-alive is turned off
+                                                phpOpenBaseDir:
+                                                    type: boolean
+                                                    description: Indicates if PHP open_basedir is enabled
+                                                phpOpenBaseDirStorage:
+                                                    type: boolean
+                                                    description: Indicates if PHP open_basedir storage is enabled
+                                                phpOpenBaseDirAll:
+                                                    type: boolean
+                                                    description: Indicates if PHP open_basedir applies to all directories
+                                                phpOpenBaseWebInWeb:
+                                                    type: boolean
+                                                    description: Indicates if PHP open_basedir allows access to web in web
+                                                nonExistSubDomainsToWeb:
+                                                    type: boolean
+                                                    description: Indicates if non-existent subdomains redirect to the web
+                                                phpMysql51Default:
+                                                    type: boolean
+                                                    description: Indicates if PHP MySQL 5.1 is the default version
+                                                phpMysql50Default:
+                                                    type: boolean
+                                                    description: Indicates if PHP MySQL 5.0 is the default version
+                                                phpMysql55Default:
+                                                    type: boolean
+                                                    description: Indicates if PHP MySQL 5.5 is the default version
+                                                phpSafeModeOff:
+                                                    type: boolean
+                                                    description: Indicates if PHP safe mode is turned off
+                                                phpRegisterGlobalsOff:
+                                                    type: boolean
+                                                    description: Indicates if PHP register_globals is turned off
+                                                phpUploadMaxFilesize:
+                                                    type: integer
+                                                    description: Maximum file size for PHP uploads
+                                                phpMemoryLimit:
+                                                    type: integer
+                                                    description: PHP memory limit
+                                                phpPostMaxSize:
+                                                    type: integer
+                                                    description: Maximum POST size for PHP
+                                                phpMaxExecutionTime:
+                                                    type: integer
+                                                    description: Maximum execution time for PHP
+                                    pager:
+                                        type: object
+                                        properties:
+                                            page:
+                                                type: integer
+                                                description: Current page number
+                                            pagesize:
+                                                type: integer
+                                                description: Number of items per page
+                                            items:
+                                                type: integer
+                                                description: Total number of items
+                "404":
+                    description: Hosting not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/hosting/{hostingId}/vhost/{vhostId}:
+        get:
+            summary: Get a webhosting domain (vhost) detail
+            description: Retrieves the details of a specific webhosting domain (vhost).
+            tags: 
+                - Webhosting domains
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+                - name: vhostId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Vhost ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Vhost ID
+                                    domain:
+                                        type: string
+                                        description: Domain name
+                                    sub:
+                                        type: string
+                                        description: Subdomain
+                                    webOnStorage:
+                                        type: string
+                                        description: Web on storage
+                                    subOnStorage:
+                                        type: string
+                                        description: Subdomain on storage
+                                    logsOnStorage:
+                                        type: string
+                                        description: Logs on storage
+                                    disabled:
+                                        type: boolean
+                                        description: Indicates if the vhost is disabled
+                                    keepAliveOff:
+                                        type: boolean
+                                        description: Indicates if keep-alive is turned off
+                                    phpOpenBaseDir:
+                                        type: boolean
+                                        description: Indicates if PHP open_basedir is enabled
+                                    phpOpenBaseDirStorage:
+                                        type: boolean
+                                        description: Indicates if PHP open_basedir storage is enabled
+                                    phpOpenBaseDirAll:
+                                        type: boolean
+                                        description: Indicates if PHP open_basedir applies to all directories
+                                    phpOpenBaseWebInWeb:
+                                        type: boolean
+                                        description: Indicates if PHP open_basedir allows access to web in web
+                                    nonExistSubDomainsToWeb:
+                                        type: boolean
+                                        description: Indicates if non-existent subdomains redirect to the web
+                                    phpMysql51Default:
+                                        type: boolean
+                                        description: Indicates if PHP MySQL 5.1 is the default version
+                                    phpMysql50Default:
+                                        type: boolean
+                                        description: Indicates if PHP MySQL 5.0 is the default version
+                                    phpMysql55Default:
+                                        type: boolean
+                                        description: Indicates if PHP MySQL 5.5 is the default version
+                                    phpSafeModeOff:
+                                        type: boolean
+                                        description: Indicates if PHP safe mode is turned off
+                                    phpRegisterGlobalsOff:
+                                        type: boolean
+                                        description: Indicates if PHP register_globals is turned off
+                                    phpUploadMaxFilesize:
+                                        type: integer
+                                        description: Maximum file size for PHP uploads
+                                    phpMemoryLimit:
+                                        type: integer
+                                        description: PHP memory limit
+                                    phpPostMaxSize:
+                                        type: integer
+                                        description: Maximum POST size for PHP
+                                    phpMaxExecutionTime:
+                                        type: integer
+                                        description: Maximum execution time for PHP
+                "404":
+                    description: Vhost not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    
+    # Webhosting stats
+    /user/{userId}/hosting/{hostingId}/size-stats:
+        get:
+            summary: Get hosting size
+            description: Retrieves the size information of a specific hosting.
+            tags: 
+                - Webhosting stats
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    hosting:
+                                        type: string
+                                        description: Hosting name
+                                    used:
+                                        type: number
+                                        format: double
+                                        description: Used hosting size in GB
+                                    free:
+                                        type: number
+                                        format: double
+                                        description: Free hosting size in GB
+                                    available:
+                                        type: number
+                                        format: double
+                                        description: Total available hosting size in GB
+                "404":
+                    description: Hosting not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/hosting/{hostingId}/domain-stats:
+        get:
+            summary: Get hosting domains usage
+            description: Retrieves the usage information of domains in a specific hosting.
+            tags: 
+                - Webhosting stats
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    hosting:
+                                        type: string
+                                        description: Hosting name
+                                    used:
+                                        type: integer
+                                        description: Number of used domains
+                                    free:
+                                        type: integer
+                                        description: Number of free domains
+                                    available:
+                                        type: integer
+                                        description: Total number of available domains
+                "404":
+                    description: Hosting not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/hosting/{hostingId}/ftp-stats:
+        get:
+            summary: Get FTP size
+            description: Retrieves the size information of FTP storage in a specific hosting.
+            tags: 
+                - Webhosting stats
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    hosting:
+                                        type: string
+                                        description: Hosting name
+                                    used:
+                                        type: number
+                                        format: double
+                                        description: Amount of FTP storage used
+                                    free:
+                                        type: number
+                                        format: double
+                                        description: Amount of free FTP storage
+                                    available:
+                                        type: number
+                                        format: double
+                                        description: Total amount of available FTP storage
+                "404":
+                    description: Hosting not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+
+    # Databases
     /user/{userId}/hosting/{hostingId}/db:
         get:
             summary: List of all databases
             description: Retrieves a list of all databases in a specific hosting.
+            tags: 
+                - Databases
             parameters:
                 - name: userId
                   in: path
@@ -209,6 +619,8 @@ paths:
         post:
             summary: Create new database
             description: Creates a new database in the specified hosting.
+            tags: 
+                - Databases
             parameters:
                 - name: userId
                   in: path
@@ -299,6 +711,8 @@ paths:
         get:
             summary: Get database detail
             description: Retrieves details of a specific database in a hosting.
+            tags: 
+                - Databases
             parameters:
                 - name: userId
                   in: path
@@ -366,6 +780,8 @@ paths:
         put:
             summary: Update database
             description: Updates an existing database in the specified hosting.
+            tags: 
+                - Databases
             parameters:
                 - name: userId
                   in: path
@@ -446,6 +862,8 @@ paths:
         delete:
             summary: Delete a database
             description: Deletes the specified database from the hosting.
+            tags: 
+                - Databases
             parameters:
                 - name: userId
                   in: path
@@ -510,10 +928,88 @@ paths:
                                     status:
                                         type: string
                                         description: Request status (success or error)
+    /user/{userId}/hosting/{hostingId}/dbusers:
+        get:
+            summary: List of all databases users
+            description: Retrieves a list of all database users in a specific hosting.
+            tags: 
+                - Databases
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Database user ID
+                                                dbUser:
+                                                    type: string
+                                                    description: Database username
+                                                domain:
+                                                    type: string
+                                                    description: Associated domain
+                                                dbType:
+                                                    type: string
+                                                    description: Database type
+                                    domains:
+                                        type: array
+                                        items:
+                                            type: string
+                                            description: List of associated domains
+                                    pager:
+                                        type: object
+                                        properties:
+                                            page:
+                                                type: integer
+                                                description: Current page number
+                                            pagesize:
+                                                type: integer
+                                                description: Number of items per page
+                                            items:
+                                                type: integer
+                                                description: Number of items in the current page
+                "404":
+                    description: Hosting not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    
+    # Databases stats
     /user/{userId}/hosting/{hostingId}/db/{dbId}/size-stats:
         get:
             summary: DB size
             description: Retrieves the size statistics of the specified database.
+            tags: 
+                - Databases stats
             parameters:
                 - name: userId
                   in: path
@@ -573,6 +1069,8 @@ paths:
         get:
             summary: DB CPU
             description: Retrieves the CPU statistics of the specified database.
+            tags: 
+                - Databases stats
             parameters:
                 - name: userId
                   in: path
@@ -685,10 +1183,270 @@ paths:
                                         items:
                                             type: integer
                                         description: Time range
+    
+    # Mailboxes
+    /user/{userId}/hosting/{hostingId}/mailbox:
+        get:
+            summary: List of all mailboxes
+            description: Retrieves a list of all mailboxes for the specified user and hosting.
+            tags: 
+                - Mailboxes management
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Mailbox ID
+                                                domain:
+                                                    type: string
+                                                    description: Domain
+                                                domainId:
+                                                    type: integer
+                                                    description: Domain ID
+                                                email:
+                                                    type: string
+                                                    description: Email address
+                                                mailBox:
+                                                    type: string
+                                                    description: Mailbox name
+                                                deleted:
+                                                    type: boolean
+                                                    description: Indicates if the mailbox is deleted
+                                                disabled:
+                                                    type: boolean
+                                                    description: Indicates if the mailbox is disabled
+                                                imapDisabled:
+                                                    type: boolean
+                                                    description: Indicates if IMAP is disabled for the mailbox
+                                                pop3Disabled:
+                                                    type: boolean
+                                                    description: Indicates if POP3 is disabled for the mailbox
+                                                ipCheck:
+                                                    type: boolean
+                                                    description: Indicates if IP check is enabled for the mailbox
+                                                countryCheck:
+                                                    type: boolean
+                                                    description: Indicates if country check is enabled for the mailbox
+                                                countries:
+                                                    type: array
+                                                    items:
+                                                        type: string
+                                                    description: List of countries allowed for the mailbox
+                                                note:
+                                                    type: string
+                                                    description: Note for the mailbox
+                                    pager:
+                                        type: object
+                                        properties:
+                                            items:
+                                                type: integer
+                                                description: Total number of items
+                                            page:
+                                                type: integer
+                                                description: Current page number
+                                            pagesize:
+                                                type: integer
+                                                description: Number of items per page
+                                    domains:
+                                        type: array
+                                        items:
+                                            type: string
+                                        description: List of domains
+    /user/{userId}/hosting/{hostingId}/mailbox/{mailboxId}:
+        get:
+            summary: Get mailbox detail
+            description: Retrieves detailed information about a specific mailbox.
+            tags: 
+                - Mailboxes management
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+                - name: mailboxId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Mailbox ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Mailbox ID
+                                    domain:
+                                        type: string
+                                        description: Domain
+                                    domainId:
+                                        type: integer
+                                        description: Domain ID
+                                    email:
+                                        type: string
+                                        description: Email address
+                                    mailBox:
+                                        type: string
+                                        description: Mailbox name
+                                    deleted:
+                                        type: boolean
+                                        description: Indicates if the mailbox is deleted
+                                    disabled:
+                                        type: boolean
+                                        description: Indicates if the mailbox is disabled
+                                    imapDisabled:
+                                        type: boolean
+                                        description: Indicates if IMAP is disabled for the mailbox
+                                    pop3Disabled:
+                                        type: boolean
+                                        description: Indicates if POP3 is disabled for the mailbox
+                                    ipCheck:
+                                        type: boolean
+                                        description: Indicates if IP check is enabled for the mailbox
+                                    countryCheck:
+                                        type: boolean
+                                        description: Indicates if country check is enabled for the mailbox
+                                    countries:
+                                        type: array
+                                        items:
+                                            type: string
+                                        description: List of countries allowed for the mailbox
+                                    note:
+                                        type: string
+                                        description: Note for the mailbox
+        delete:
+            summary: Delete mailbox
+            description: Deletes an existing mailbox.
+            tags: 
+                - Mailboxes management
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+                - name: domainId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Domain ID
+                - name: mailboxId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Mailbox ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    errors:
+                                        type: object
+                                        additionalProperties:
+                                            type: array
+                                            items:
+                                                type: string
+                                            description: Validation errors, if any
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                                description: Mailbox ID
+                                            domain:
+                                                type: string
+                                                description: Domain
+                                            domainId:
+                                                type: integer
+                                                description: Domain ID
+                                            email:
+                                                type: string
+                                                description: Email address
+                                            mailBox:
+                                                type: string
+                                                description: Mailbox name
+                                            deleted:
+                                                type: boolean
+                                                description: Indicates if the mailbox is deleted
+                                            disabled:
+                                                type: boolean
+                                                description: Indicates if the mailbox is disabled
+                                            imapDisabled:
+                                                type: boolean
+                                                description: Indicates if IMAP is disabled for the mailbox
+                                            pop3Disabled:
+                                                type: boolean
+                                                description: Indicates if POP3 is disabled for the mailbox
+                                            ipCheck:
+                                                type: boolean
+                                                description: Indicates if IP check is enabled for the mailbox
+                                            countryCheck:
+                                                type: boolean
+                                                description: Indicates if country check is enabled for the mailbox
+                                            countries:
+                                                type: array
+                                                items:
+                                                    type: string
+                                                description: List of countries allowed for the mailbox
+                                            note:
+                                                type: string
+                                                description: Note for the mailbox
+                                    status:
+                                        type: string
+                                        description: Request status ('success' or 'error')
     /user/{userId}/hosting/{hostingId}/domain/{domainId}/mailbox:
         post:
             summary: Create new mailbox
             description: Creates a new mailbox for a specific domain.
+            tags: 
+                - Mailboxes management
             parameters:
                 - name: userId
                   in: path
@@ -817,6 +1575,8 @@ paths:
         post:
             summary: Update mailbox
             description: Updates an existing mailbox.
+            tags: 
+                - Mailboxes management
             parameters:
                 - name: userId
                   in: path
@@ -944,10 +1704,143 @@ paths:
                                     status:
                                         type: string
                                         description: Request status ('success' or 'error')
+    
+    # Mailboxes stats
+    /user/{userId}/hosting/{hostingId}/mail/size-stats:
+        get:
+            summary: Get email size history per hosting
+            description: Retrieves the email size history per hosting for multiple domains.
+            tags:
+                - Mailboxes stats
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+                - name: interval
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      enum: [day, hour]
+                      default: day
+                      description: Time interval for measurements (day or hour)
+                - name: length
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      description: Number of shown measurements
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    domains:
+                                        type: array
+                                        items:
+                                            type: string
+                                        description: List of domains
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                size:
+                                                    type: integer
+                                                    description: Email size in bytes
+                                                timestamp:
+                                                    type: integer
+                                                    description: Timestamp of the measurement
+                                        description: List of email size measurements
+                                    range:
+                                        type: array
+                                        items:
+                                            type: integer
+                                        description: Range of timestamps for the measurements
+    /user/{userId}/hosting/{hostingId}/mail/{domain}/size-stats:
+        get:
+            summary: Get email size history per domain
+            description: Retrieves the email size history per domain.
+            tags:
+                - Mailboxes stats
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: hostingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Hosting ID
+                - name: domain
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Domain name
+                - name: interval
+                  in: query
+                  required: false
+                  schema:
+                      type: string
+                      enum: [day, hour]
+                      default: day
+                      description: Time interval for measurements (day or hour)
+                - name: length
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      description: Number of shown measurements
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                size:
+                                                    type: integer
+                                                    description: Email size in bytes
+                                                timestamp:
+                                                    type: integer
+                                                    description: Timestamp of the measurement
+                                        description: List of email size measurements
+                                    range:
+                                        type: array
+                                        items:
+                                            type: integer
+                                        description: Range of timestamps for the measurements
+    
+    # FTP accounts management
     /user/{userId}/hosting/{hostingId}/ftp-account:
         get:
             summary: List of all FTP accounts
             description: Retrieves a list of all FTP accounts for the specified user and hosting.
+            tags:
+                - FTP accounts management
             parameters:
                 - name: userId
                   in: path
@@ -1009,6 +1902,8 @@ paths:
         put:
             summary: Create new FTP account
             description: Creates a new FTP account.
+            tags:
+                - FTP accounts management
             parameters:
                 - name: userId
                   in: path
@@ -1134,6 +2029,8 @@ paths:
         get:
             summary: Get FTP account detail
             description: Retrieves the details of a specific FTP account.
+            tags:
+                - FTP accounts management
             parameters:
                 - name: userId
                   in: path
@@ -1209,6 +2106,8 @@ paths:
         post:
             summary: Update FTP account
             description: Updates an existing FTP account.
+            tags:
+                - FTP accounts management
             parameters:
                 - name: userId
                   in: path
@@ -1354,6 +2253,8 @@ paths:
         delete:
             summary: Delete FTP account
             description: Deletes an existing FTP account.
+            tags:
+                - FTP accounts management
             parameters:
                 - name: userId
                   in: path
@@ -1432,837 +2333,4 @@ paths:
                                             note:
                                                 type: string
                                                 description: Additional note or description
-    /user/{userId}/hosting/{hostingId}/mailbox:
-        get:
-            summary: List of all mailboxes
-            description: Retrieves a list of all mailboxes for the specified user and hosting.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    items:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                id:
-                                                    type: integer
-                                                    description: Mailbox ID
-                                                domain:
-                                                    type: string
-                                                    description: Domain
-                                                domainId:
-                                                    type: integer
-                                                    description: Domain ID
-                                                email:
-                                                    type: string
-                                                    description: Email address
-                                                mailBox:
-                                                    type: string
-                                                    description: Mailbox name
-                                                deleted:
-                                                    type: boolean
-                                                    description: Indicates if the mailbox is deleted
-                                                disabled:
-                                                    type: boolean
-                                                    description: Indicates if the mailbox is disabled
-                                                imapDisabled:
-                                                    type: boolean
-                                                    description: Indicates if IMAP is disabled for the mailbox
-                                                pop3Disabled:
-                                                    type: boolean
-                                                    description: Indicates if POP3 is disabled for the mailbox
-                                                ipCheck:
-                                                    type: boolean
-                                                    description: Indicates if IP check is enabled for the mailbox
-                                                countryCheck:
-                                                    type: boolean
-                                                    description: Indicates if country check is enabled for the mailbox
-                                                countries:
-                                                    type: array
-                                                    items:
-                                                        type: string
-                                                    description: List of countries allowed for the mailbox
-                                                note:
-                                                    type: string
-                                                    description: Note for the mailbox
-                                    pager:
-                                        type: object
-                                        properties:
-                                            items:
-                                                type: integer
-                                                description: Total number of items
-                                            page:
-                                                type: integer
-                                                description: Current page number
-                                            pagesize:
-                                                type: integer
-                                                description: Number of items per page
-                                    domains:
-                                        type: array
-                                        items:
-                                            type: string
-                                        description: List of domains
-    /user/{userId}/hosting/{hostingId}/mailbox/{mailboxId}:
-        get:
-            summary: Get mailbox detail
-            description: Retrieves detailed information about a specific mailbox.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: mailboxId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Mailbox ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        description: Mailbox ID
-                                    domain:
-                                        type: string
-                                        description: Domain
-                                    domainId:
-                                        type: integer
-                                        description: Domain ID
-                                    email:
-                                        type: string
-                                        description: Email address
-                                    mailBox:
-                                        type: string
-                                        description: Mailbox name
-                                    deleted:
-                                        type: boolean
-                                        description: Indicates if the mailbox is deleted
-                                    disabled:
-                                        type: boolean
-                                        description: Indicates if the mailbox is disabled
-                                    imapDisabled:
-                                        type: boolean
-                                        description: Indicates if IMAP is disabled for the mailbox
-                                    pop3Disabled:
-                                        type: boolean
-                                        description: Indicates if POP3 is disabled for the mailbox
-                                    ipCheck:
-                                        type: boolean
-                                        description: Indicates if IP check is enabled for the mailbox
-                                    countryCheck:
-                                        type: boolean
-                                        description: Indicates if country check is enabled for the mailbox
-                                    countries:
-                                        type: array
-                                        items:
-                                            type: string
-                                        description: List of countries allowed for the mailbox
-                                    note:
-                                        type: string
-                                        description: Note for the mailbox
-        delete:
-            summary: Delete mailbox
-            description: Deletes an existing mailbox.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: domainId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Domain ID
-                - name: mailboxId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Mailbox ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    errors:
-                                        type: object
-                                        additionalProperties:
-                                            type: array
-                                            items:
-                                                type: string
-                                            description: Validation errors, if any
-                                    item:
-                                        type: object
-                                        properties:
-                                            id:
-                                                type: integer
-                                                description: Mailbox ID
-                                            domain:
-                                                type: string
-                                                description: Domain
-                                            domainId:
-                                                type: integer
-                                                description: Domain ID
-                                            email:
-                                                type: string
-                                                description: Email address
-                                            mailBox:
-                                                type: string
-                                                description: Mailbox name
-                                            deleted:
-                                                type: boolean
-                                                description: Indicates if the mailbox is deleted
-                                            disabled:
-                                                type: boolean
-                                                description: Indicates if the mailbox is disabled
-                                            imapDisabled:
-                                                type: boolean
-                                                description: Indicates if IMAP is disabled for the mailbox
-                                            pop3Disabled:
-                                                type: boolean
-                                                description: Indicates if POP3 is disabled for the mailbox
-                                            ipCheck:
-                                                type: boolean
-                                                description: Indicates if IP check is enabled for the mailbox
-                                            countryCheck:
-                                                type: boolean
-                                                description: Indicates if country check is enabled for the mailbox
-                                            countries:
-                                                type: array
-                                                items:
-                                                    type: string
-                                                description: List of countries allowed for the mailbox
-                                            note:
-                                                type: string
-                                                description: Note for the mailbox
-                                    status:
-                                        type: string
-                                        description: Request status ('success' or 'error')
-    /user/{userId}/hosting/{hostingId}/mail/size-stats:
-        get:
-            summary: Get email size history per hosting
-            description: Retrieves the email size history per hosting for multiple domains.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: interval
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      enum: [day, hour]
-                      default: day
-                      description: Time interval for measurements (day or hour)
-                - name: length
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of shown measurements
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    domains:
-                                        type: array
-                                        items:
-                                            type: string
-                                        description: List of domains
-                                    items:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                size:
-                                                    type: integer
-                                                    description: Email size in bytes
-                                                timestamp:
-                                                    type: integer
-                                                    description: Timestamp of the measurement
-                                        description: List of email size measurements
-                                    range:
-                                        type: array
-                                        items:
-                                            type: integer
-                                        description: Range of timestamps for the measurements
-    /user/{userId}/hosting/{hostingId}/mail/{domain}/size-stats:
-        get:
-            summary: Get email size history per domain
-            description: Retrieves the email size history per domain.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: domain
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name
-                - name: interval
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      enum: [day, hour]
-                      default: day
-                      description: Time interval for measurements (day or hour)
-                - name: length
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of shown measurements
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    items:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                size:
-                                                    type: integer
-                                                    description: Email size in bytes
-                                                timestamp:
-                                                    type: integer
-                                                    description: Timestamp of the measurement
-                                        description: List of email size measurements
-                                    range:
-                                        type: array
-                                        items:
-                                            type: integer
-                                        description: Range of timestamps for the measurements
-    /user/{userId}/hosting/{hostingId}/vhost:
-        get:
-            summary: List of all webhosting domains (vhosts)
-            description: Retrieves a list of all webhosting domains (vhosts) for a specific hosting.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    items:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                id:
-                                                    type: integer
-                                                    description: Domain ID
-                                                domain:
-                                                    type: string
-                                                    description: Domain name
-                                                sub:
-                                                    type: string
-                                                    description: Subdomain
-                                                webOnStorage:
-                                                    type: string
-                                                    description: Web on storage
-                                                subOnStorage:
-                                                    type: string
-                                                    description: Subdomain on storage
-                                                logsOnStorage:
-                                                    type: string
-                                                    description: Logs on storage
-                                                disabled:
-                                                    type: boolean
-                                                    description: Indicates if the vhost is disabled
-                                                keepAliveOff:
-                                                    type: boolean
-                                                    description: Indicates if keep-alive is turned off
-                                                phpOpenBaseDir:
-                                                    type: boolean
-                                                    description: Indicates if PHP open_basedir is enabled
-                                                phpOpenBaseDirStorage:
-                                                    type: boolean
-                                                    description: Indicates if PHP open_basedir storage is enabled
-                                                phpOpenBaseDirAll:
-                                                    type: boolean
-                                                    description: Indicates if PHP open_basedir applies to all directories
-                                                phpOpenBaseWebInWeb:
-                                                    type: boolean
-                                                    description: Indicates if PHP open_basedir allows access to web in web
-                                                nonExistSubDomainsToWeb:
-                                                    type: boolean
-                                                    description: Indicates if non-existent subdomains redirect to the web
-                                                phpMysql51Default:
-                                                    type: boolean
-                                                    description: Indicates if PHP MySQL 5.1 is the default version
-                                                phpMysql50Default:
-                                                    type: boolean
-                                                    description: Indicates if PHP MySQL 5.0 is the default version
-                                                phpMysql55Default:
-                                                    type: boolean
-                                                    description: Indicates if PHP MySQL 5.5 is the default version
-                                                phpSafeModeOff:
-                                                    type: boolean
-                                                    description: Indicates if PHP safe mode is turned off
-                                                phpRegisterGlobalsOff:
-                                                    type: boolean
-                                                    description: Indicates if PHP register_globals is turned off
-                                                phpUploadMaxFilesize:
-                                                    type: integer
-                                                    description: Maximum file size for PHP uploads
-                                                phpMemoryLimit:
-                                                    type: integer
-                                                    description: PHP memory limit
-                                                phpPostMaxSize:
-                                                    type: integer
-                                                    description: Maximum POST size for PHP
-                                                phpMaxExecutionTime:
-                                                    type: integer
-                                                    description: Maximum execution time for PHP
-                                    pager:
-                                        type: object
-                                        properties:
-                                            page:
-                                                type: integer
-                                                description: Current page number
-                                            pagesize:
-                                                type: integer
-                                                description: Number of items per page
-                                            items:
-                                                type: integer
-                                                description: Total number of items
-                "404":
-                    description: Hosting not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
-    /user/{userId}/hosting/{hostingId}/vhost/{vhostId}:
-        get:
-            summary: Get a webhosting domain (vhost) detail
-            description: Retrieves the details of a specific webhosting domain (vhost).
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: vhostId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Vhost ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        description: Vhost ID
-                                    domain:
-                                        type: string
-                                        description: Domain name
-                                    sub:
-                                        type: string
-                                        description: Subdomain
-                                    webOnStorage:
-                                        type: string
-                                        description: Web on storage
-                                    subOnStorage:
-                                        type: string
-                                        description: Subdomain on storage
-                                    logsOnStorage:
-                                        type: string
-                                        description: Logs on storage
-                                    disabled:
-                                        type: boolean
-                                        description: Indicates if the vhost is disabled
-                                    keepAliveOff:
-                                        type: boolean
-                                        description: Indicates if keep-alive is turned off
-                                    phpOpenBaseDir:
-                                        type: boolean
-                                        description: Indicates if PHP open_basedir is enabled
-                                    phpOpenBaseDirStorage:
-                                        type: boolean
-                                        description: Indicates if PHP open_basedir storage is enabled
-                                    phpOpenBaseDirAll:
-                                        type: boolean
-                                        description: Indicates if PHP open_basedir applies to all directories
-                                    phpOpenBaseWebInWeb:
-                                        type: boolean
-                                        description: Indicates if PHP open_basedir allows access to web in web
-                                    nonExistSubDomainsToWeb:
-                                        type: boolean
-                                        description: Indicates if non-existent subdomains redirect to the web
-                                    phpMysql51Default:
-                                        type: boolean
-                                        description: Indicates if PHP MySQL 5.1 is the default version
-                                    phpMysql50Default:
-                                        type: boolean
-                                        description: Indicates if PHP MySQL 5.0 is the default version
-                                    phpMysql55Default:
-                                        type: boolean
-                                        description: Indicates if PHP MySQL 5.5 is the default version
-                                    phpSafeModeOff:
-                                        type: boolean
-                                        description: Indicates if PHP safe mode is turned off
-                                    phpRegisterGlobalsOff:
-                                        type: boolean
-                                        description: Indicates if PHP register_globals is turned off
-                                    phpUploadMaxFilesize:
-                                        type: integer
-                                        description: Maximum file size for PHP uploads
-                                    phpMemoryLimit:
-                                        type: integer
-                                        description: PHP memory limit
-                                    phpPostMaxSize:
-                                        type: integer
-                                        description: Maximum POST size for PHP
-                                    phpMaxExecutionTime:
-                                        type: integer
-                                        description: Maximum execution time for PHP
-                "404":
-                    description: Vhost not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
-    /user/{userId}/hosting/{hostingId}/ftp-stats:
-        get:
-            summary: Get FTP size
-            description: Retrieves the size information of FTP storage in a specific hosting.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    hosting:
-                                        type: string
-                                        description: Hosting name
-                                    used:
-                                        type: number
-                                        format: double
-                                        description: Amount of FTP storage used
-                                    free:
-                                        type: number
-                                        format: double
-                                        description: Amount of free FTP storage
-                                    available:
-                                        type: number
-                                        format: double
-                                        description: Total amount of available FTP storage
-                "404":
-                    description: Hosting not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
-    /user/{userId}/hosting/{hostingId}/size-stats:
-        get:
-            summary: Get hosting size
-            description: Retrieves the size information of a specific hosting.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    hosting:
-                                        type: string
-                                        description: Hosting name
-                                    used:
-                                        type: number
-                                        format: double
-                                        description: Used hosting size in GB
-                                    free:
-                                        type: number
-                                        format: double
-                                        description: Free hosting size in GB
-                                    available:
-                                        type: number
-                                        format: double
-                                        description: Total available hosting size in GB
-                "404":
-                    description: Hosting not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
-    /user/{userId}/hosting/{hostingId}/dbusers:
-        get:
-            summary: List of all databases users
-            description: Retrieves a list of all database users in a specific hosting.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    items:
-                                        type: array
-                                        items:
-                                            type: object
-                                            properties:
-                                                id:
-                                                    type: integer
-                                                    description: Database user ID
-                                                dbUser:
-                                                    type: string
-                                                    description: Database username
-                                                domain:
-                                                    type: string
-                                                    description: Associated domain
-                                                dbType:
-                                                    type: string
-                                                    description: Database type
-                                    domains:
-                                        type: array
-                                        items:
-                                            type: string
-                                            description: List of associated domains
-                                    pager:
-                                        type: object
-                                        properties:
-                                            page:
-                                                type: integer
-                                                description: Current page number
-                                            pagesize:
-                                                type: integer
-                                                description: Number of items per page
-                                            items:
-                                                type: integer
-                                                description: Number of items in the current page
-                "404":
-                    description: Hosting not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
-    /user/{userId}/hosting/{hostingId}/domain-stats:
-        get:
-            summary: Get hosting domains usage
-            description: Retrieves the usage information of domains in a specific hosting.
-            parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    hosting:
-                                        type: string
-                                        description: Hosting name
-                                    used:
-                                        type: integer
-                                        description: Number of used domains
-                                    free:
-                                        type: integer
-                                        description: Number of free domains
-                                    available:
-                                        type: integer
-                                        description: Total number of available domains
-                "404":
-                    description: Hosting not found
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    code:
-                                        type: integer
-                                        description: Error code
-                                    message:
-                                        type: string
-                                        description: Error message
-
-    
+ 
