@@ -1,0 +1,663 @@
+openapi: 3.0.0
+info:
+    title: Webhosting API
+    version: 1.0.0
+servers:
+    - url: https://rest.websupport.sk/v1
+paths:
+    /user/{userId}/vps:
+        get:
+            summary: List all VPS servers
+            description: Retrieves a list of Virtual Private Servers (VPS) associated with the user.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - page
+                                    - items
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: VPS server ID
+                                                name:
+                                                    type: string
+                                                    description: VPS server name
+                                            required:
+                                                - id
+                                                - name
+                                        description: List of VPS servers
+                                    pager:
+                                        type: object
+                                        properties:
+                                            page:
+                                                type: integer
+                                                description: Current page number
+                                            pagesize:
+                                                type: integer
+                                                description: Number of items per page
+                                            items:
+                                                type: integer
+                                                description: Total number of items
+    /user/{userId}/vps/{vpsIdOrName}:
+        get:
+            summary: Get VPS detail
+            description: Retrieves detailed information about a Virtual Private Server (VPS) by ID or name.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - id
+                                    - name
+                                    - status
+                                    - created
+                                    - updated
+                                    - ips
+                                    - flavor
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: VPS server ID
+                                    name:
+                                        type: string
+                                        description: VPS server name
+                                    status:
+                                        type: string
+                                        description: VPS server status
+                                    created:
+                                        type: integer
+                                        description: Unix timestamp of VPS server creation
+                                    updated:
+                                        type: integer
+                                        description: Unix timestamp of last VPS server update
+                                    progress:
+                                        type: integer
+                                        description: Progress of a task performed on the VPS server
+                                    ips:
+                                        type: array
+                                        items:
+                                            type: string
+                                            description: IP address assigned to the VPS server
+                                        description: List of IP addresses
+                                    reverse_dns:
+                                        type: object
+                                        additionalProperties:
+                                            type: string
+                                        description: Mapping of IP addresses to reverse DNS records
+                                    flavor:
+                                        type: object
+                                        properties:
+                                            disk:
+                                                type: integer
+                                                description: Disk size in GB
+                                            vcpus:
+                                                type: integer
+                                                description: Number of virtual CPUs
+                                            ram:
+                                                type: integer
+                                                description: Amount of RAM in MB
+                                            name:
+                                                type: string
+                                                description: Flavor name
+                                        description: VPS server flavor information
+    /user/{userId}/vps/{vpsIdOrName}/vnc:
+        get:
+            summary: Get VNC console
+            description: Retrieves the VNC console information for a Virtual Private Server (VPS) by ID or name.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - id
+                                    - name
+                                    - vnc
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: VPS server ID
+                                    name:
+                                        type: string
+                                        description: VPS server name
+                                    vnc:
+                                        type: object
+                                        required:
+                                            - url
+                                            - token
+                                            - websocket
+                                        properties:
+                                            url:
+                                                type: string
+                                                format: uri
+                                                description: URL for accessing the VNC console
+                                            token:
+                                                type: string
+                                                description: VNC token for authentication
+                                            websocket:
+                                                type: string
+                                                description: Websocket URL for VNC communication
+    /user/{userId}/vps/{vpsIdOrName}/cpu-stats:
+        get:
+            summary: CPU Stats
+            description: Get CPU statistics for a Virtual Private Server (VPS).
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+                - name: interval
+                  in: query
+                  required: true
+                  schema:
+                      type: string
+                      enum: [day, hour, minute]
+                      description: Time interval for CPU measurements (day, hour, or minute)
+                - name: length
+                  in: query
+                  required: true
+                  schema:
+                      type: integer
+                      description: Number of shown measurements (time period depends on the chosen interval)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - range
+                                    - items
+                                properties:
+                                    range:
+                                        type: array
+                                        items:
+                                            type: integer
+                                        description: Range of timestamps for the CPU measurements
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                timestamp:
+                                                    type: integer
+                                                    description: Timestamp of the CPU measurement
+                                                write_bytes:
+                                                    type: integer
+                                                    description: Number of bytes written
+                                                memory_vms:
+                                                    type: integer
+                                                    description: Virtual memory size in bytes
+                                                memory_rss:
+                                                    type: integer
+                                                    description: Resident set size in bytes
+                                                system:
+                                                    type: integer
+                                                    description: CPU time spent in system mode
+                                                read_bytes:
+                                                    type: integer
+                                                    description: Number of bytes read
+                                                user:
+                                                    type: integer
+                                                    description: CPU time spent in user mode
+                                            required:
+                                                - timestamp
+                                                - write_bytes
+                                                - memory_vms
+                                                - memory_rss
+                                                - system
+                                                - read_bytes
+                                                - user
+                                        description: CPU measurements
+    /user/{userId}/vps/{vpsIdOrName}/traffic-stats:
+        get:
+            summary: Traffic Stats
+            description: Get traffic statistics for a Virtual Private Server (VPS).
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+                - name: interval
+                  in: query
+                  required: true
+                  schema:
+                      type: string
+                      enum: [day, hour, minute]
+                      description: Time interval for traffic measurements (day, hour, or minute)
+                - name: length
+                  in: query
+                  required: true
+                  schema:
+                      type: integer
+                      description: Number of shown measurements (time period depends on the chosen interval)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - range
+                                    - items
+                                properties:
+                                    range:
+                                        type: array
+                                        items:
+                                            type: integer
+                                        description: Range of timestamps for the traffic measurements
+                                    items:
+                                        type: array
+                                        description: Traffic measurements
+                                        items:
+                                            type: object
+                                            required:
+                                                - timestamp
+                                                - obyt
+                                                - opkt
+                                                - ibyt
+                                                - ipkt
+                                            properties:
+                                                timestamp:
+                                                    type: integer
+                                                    description: Timestamp of the traffic measurement
+                                                obyt:
+                                                    type: integer
+                                                    description: Outgoing bytes
+                                                opkt:
+                                                    type: integer
+                                                    description: Outgoing packets
+                                                ibyt:
+                                                    type: integer
+                                                    description: Incoming bytes
+                                                ipkt:
+                                                    type: integer
+                                                    description: Incoming packets
+    /user/{userId}/vps/{vpsIdOrName}/reboot:
+        get:
+            summary: List VPS Snapshots
+            description: Retrieve a list of all snapshots for the specified VPS.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - items
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                created:
+                                                    type: integer
+                                                    description: Timestamp of the snapshot creation
+                                                name:
+                                                    type: string
+                                                    description: Name of the snapshot
+                                                description:
+                                                    type: string
+                                                    description: Description of the snapshot
+                                                status:
+                                                    type: string
+                                                    description: Status of the snapshot
+                                            required:
+                                                - created
+                                                - name
+                                                - description
+                                                - status
+                                        description: List of snapshots
+
+        put:
+            summary: Reboot VPS
+            description: Reboots a Virtual Private Server (VPS) by ID or name.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - status
+                                    - item
+                                    - errors
+                                properties:
+                                    status:
+                                        description: Status of the operation (success or error)
+                                        type: string
+                                    item:
+                                        type: object
+                                        required:
+                                            - id
+                                            - name
+                                        properties:
+                                            id:
+                                                type: integer
+                                                description: VPS server ID
+                                            name:
+                                                type: string
+                                                description: VPS server name
+                                    errors:
+                                        description: Validation errors (if any)
+                                        type: object
+                                        additionalProperties:
+                                            type: array
+                                            items:
+                                                type: string
+    /user/{userId}/vps/{vpsIdOrName}/hard-reboot:
+        put:
+            summary: Hard Reboot VPS
+            description: Performs a hard reboot of a Virtual Private Server (VPS) by ID or name.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - status
+                                    - item
+                                    - errors
+                                properties:
+                                    status:
+                                        type: string
+                                        description: Status of the operation (success or error)
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                                description: VPS server ID
+                                            name:
+                                                type: string
+                                                description: VPS server name
+                                        required:
+                                            - id
+                                            - name
+                                    errors:
+                                        type: object
+                                        additionalProperties:
+                                            type: array
+                                            items:
+                                                type: string
+                                        description: Validation errors (if any)
+    /user/{userId}/vps/{vpsIdOrName}/snapshot:
+        get:
+            summary: List VPS Snapshots
+            description: Retrieve a list of all snapshots for the specified VPS.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - items
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                created:
+                                                    type: integer
+                                                    description: Timestamp of the snapshot creation
+                                                name:
+                                                    type: string
+                                                    description: Name of the snapshot
+                                                description:
+                                                    type: string
+                                                    description: Description of the snapshot
+                                                status:
+                                                    type: string
+                                                    description: Status of the snapshot
+                                            required:
+                                                - created
+                                                - name
+                                                - description
+                                                - status
+                                        description: List of snapshots
+
+        post:
+            summary: Create VPS Snapshot
+            description: Saves the current state of the specified VPS into a snapshot.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                description:
+                                    type: string
+                                    description: Description of the snapshot
+                            required:
+                                - description
+            responses:
+                "201":
+                    description: Created
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - created
+                                    - name
+                                    - description
+                                    - status
+                                properties:
+                                    created:
+                                        type: integer
+                                        description: Timestamp of the snapshot creation
+                                    name:
+                                        type: string
+                                        description: Name of the snapshot
+                                    description:
+                                        type: string
+                                        description: Description of the snapshot
+                                    status:
+                                        type: string
+                                        description: Status of the snapshot
+                                        
+                "403":
+                    description: Forbidden
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                required:
+                                    - code
+                                    - message
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/vps/{vpsIdOrName}/snapshot/{snapshotName}:
+        post:
+            summary: Restore VPS from Snapshot
+            description: Rollbacks the specified VPS to the state of the specified snapshot.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+                - name: snapshotName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Name of the snapshot to restore
+            responses:
+                "204":
+                    description: No Content
+        delete:
+            summary: Delete VPS Snapshot
+            description: Deletes the specified VPS snapshot.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: vpsIdOrName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: VPS ID or name
+                - name: snapshotName
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Name of the snapshot to delete
+            responses:
+                "204":
+                    description: No Content

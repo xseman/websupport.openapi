@@ -1,0 +1,913 @@
+openapi: 3.0.0
+info:
+    title: Ordering API
+    version: 1.0.0
+servers:
+    - url: https://rest.websupport.sk/v1
+paths:
+    /order/{market}:
+        get:
+            summary: List of available services
+            description: Retrieves a list of available services and their prices for a specific market.
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        type:
+                                            type: string
+                                            description: Service type
+                                        prices:
+                                            type: array
+                                            items:
+                                                type: object
+                                                properties:
+                                                    tld:
+                                                        type: string
+                                                        description: Top-level domain
+                                                    price:
+                                                        type: number
+                                                        format: float
+                                                        description: Price for the specified TLD
+                                                    limit:
+                                                        type: integer
+                                                        description: Hosting limit
+                                                    ram:
+                                                        type: integer
+                                                        description: RAM size
+                                                    disk:
+                                                        type: integer
+                                                        description: Disk size
+                                                    vcpus:
+                                                        type: integer
+                                                        description: Number of virtual CPUs
+                                        discounts:
+                                            type: array
+                                            items:
+                                                type: object
+                                                properties:
+                                                    tld:
+                                                        type: string
+                                                        description: Top-level domain
+                                                    price:
+                                                        type: number
+                                                        format: float
+                                                        description: Discounted price for the specified TLD
+                                        currency:
+                                            type: string
+                                            description: Currency code
+                                        templates:
+                                            type: array
+                                            items:
+                                                type: object
+                                                properties:
+                                                    name:
+                                                        type: string
+                                                        description: Template name
+                                                    version:
+                                                        type: string
+                                                        description: Template version
+                "404":
+                    description: Not Found
+    /order/{market}/{type}:
+        get:
+            summary: Service details
+            description: Retrieves details of a specific service for a given market.
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+                - name: type
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Service type (e.g., domain, thehosting, etc.)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    type:
+                                        type: string
+                                        description: Service type
+                                    prices:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                limit:
+                                                    type: integer
+                                                    description: Hosting limit
+                                                price:
+                                                    type: number
+                                                    format: float
+                                                    description: Price for the specified limit
+                                    currency:
+                                        type: string
+                                        description: Currency code
+                "404":
+                    description: Not Found
+    /order/{market}/validate:
+        post:
+            summary: Validate multiple services
+            description: Validates multiple services in a single request.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    type:
+                                        type: string
+                                        description: Service type (e.g., domain, thehosting)
+                                    domain:
+                                        type: string
+                                        description: Domain name (required for domain service)
+                                    limit:
+                                        type: integer
+                                        description: Hosting limit in MB (required for thehosting service)
+                                    period:
+                                        type: integer
+                                        nullable: true
+                                        description: Service billing period in months (nullable)
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        status:
+                                            type: string
+                                            description: Status of the validation
+                                        item:
+                                            type: object
+                                            description: Validated service details
+                                        errors:
+                                            type: array
+                                            items:
+                                                type: object
+                                            description: Error messages for the service
+                "500":
+                    description: Internal Server Error
+    /order/{market}/validate/credit:
+        post:
+            summary: Validate credit
+            description: Validates order attributes for credit service.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                amount:
+                                    type: integer
+                                    description: Amount to order (1 credit is 1 EUR, HUF or CZK depending on market)
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                        description: Status of the validation
+                                    item:
+                                        type: object
+                                        properties:
+                                            amount:
+                                                type: integer
+                                                description: The validated amount of credit
+                                            price:
+                                                type: number
+                                                format: float
+                                                description: Price for the credit service
+                                            priceWithVat:
+                                                type: number
+                                                format: float
+                                                description: Price for the credit service with VAT
+                                            currency:
+                                                type: string
+                                                description: Currency code
+                                            period:
+                                                type: integer
+                                                nullable: true
+                                                description: Duration of the service billing period (nullable)
+                                            periodLength:
+                                                type: string
+                                                nullable: true
+                                                description: Length of the billing period (nullable)
+                                    errors:
+                                        type: object
+                                        additionalProperties:
+                                            type: array
+                                            items:
+                                                type: string
+                                        description: Object containing field-specific error messages
+                "500":
+                    description: Internal Server Error
+    /order/{market}/validate/domain:
+        post:
+            summary: Validate a domain
+            description: Validates order attributes for a domain.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                domain:
+                                    type: string
+                                    description: The full domain name with TLD
+                                dnsServers:
+                                    type: string
+                                    description: List of DNS servers separated by semicolon (;)
+                                domainProfileId:
+                                    type: integer
+                                    description: ID of the domain profile
+                                contactId:
+                                    type: string
+                                    description: Custom contact ID
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                        description: Status of the validation
+                                    item:
+                                        type: object
+                                        properties:
+                                            domain:
+                                                type: string
+                                                description: The validated domain name
+                                            suggest:
+                                                type: boolean
+                                                description: Indicates if a suggested domain is available
+                                            dnsServers:
+                                                type: string
+                                                description: List of DNS servers separated by semicolon
+                                            contactId:
+                                                type: string
+                                                description: Custom contact ID
+                                            domainProfileId:
+                                                type: integer
+                                                description: ID of the domain profile
+                                            price:
+                                                type: number
+                                                format: float
+                                                description: Price for the domain
+                                            priceWithVat:
+                                                type: number
+                                                format: float
+                                                description: Price for the domain with VAT
+                                            currency:
+                                                type: string
+                                                description: Currency code
+                                            period:
+                                                type: integer
+                                                description: Duration of the domain registration
+                                            periodLength:
+                                                type: string
+                                                description: Length of the registration period
+                                    errors:
+                                        oneOf:
+                                            - type: array
+                                              items:
+                                                  type: string
+                                              description: Array of error messages
+                                            - type: object
+                                              additionalProperties:
+                                                  type: array
+                                                  items:
+                                                      type: string
+                                              description: Object containing field-specific error messages
+                "500":
+                    description: Internal Server Error
+    /order/{market}/validate/thehosting:
+        post:
+            summary: Validate The Hosting service
+            description: Validates order attributes for The Hosting service.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                limit:
+                                    type: integer
+                                    description: "Hosting limit in MB (range: 1024~256000)"
+                                period:
+                                    type: integer
+                                    description: "Service billing period in months (range: 1~12, default: 1)"
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                        description: Status of the validation
+                                    item:
+                                        type: object
+                                        properties:
+                                            limit:
+                                                type: integer
+                                                description: The validated hosting limit in MB
+                                            price:
+                                                type: number
+                                                format: float
+                                                description: Price for The Hosting service
+                                            priceWithVat:
+                                                type: number
+                                                format: float
+                                                description: Price for The Hosting service with VAT
+                                            currency:
+                                                type: string
+                                                description: Currency code
+                                            period:
+                                                type: integer
+                                                description: Duration of the service billing period
+                                            periodLength:
+                                                type: string
+                                                description: Length of the billing period
+                                    errors:
+                                        type: object
+                                        additionalProperties:
+                                            type: array
+                                            items:
+                                                type: string
+                                        description: Object containing field-specific error messages
+                "500":
+                    description: Internal Server Error
+    /order/{market}/validate/vps:
+        post:
+            summary: Validate VPS
+            description: Validates order attributes for VPS service.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    description: VPS hostname (only alphanumeric characters)
+                                ram:
+                                    type: integer
+                                    description: RAM size in MB
+                                disk:
+                                    type: integer
+                                    description: HDD size in GB
+                                vcpus:
+                                    type: integer
+                                    description: Number of virtual CPUs
+                                templateName:
+                                    type: string
+                                    description: Template name
+                                templateVersion:
+                                    type: string
+                                    description: Template version
+                                period:
+                                    type: integer
+                                    nullable: true
+                                    description: Service billing period in months (nullable)
+                                secondaryIp:
+                                    type: boolean
+                                    nullable: true
+                                    description: Flag indicating if secondary IP is enabled (nullable)
+                                backups:
+                                    type: boolean
+                                    nullable: true
+                                    description: Flag indicating if backups are enabled (nullable)
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                        description: Status of the validation
+                                    item:
+                                        type: object
+                                        properties:
+                                            name:
+                                                type: string
+                                                description: VPS hostname
+                                            ram:
+                                                type: integer
+                                                description: RAM size in MB
+                                            disk:
+                                                type: integer
+                                                description: HDD size in GB
+                                            vcpus:
+                                                type: integer
+                                                nullable: true
+                                                description: Number of virtual CPUs (nullable)
+                                            templateName:
+                                                type: string
+                                                description: Template name
+                                            templateVersion:
+                                                type: string
+                                                description: Template version
+                                            secondaryIp:
+                                                type: boolean
+                                                nullable: true
+                                                description: Flag indicating if secondary IP is enabled (nullable)
+                                            backups:
+                                                type: boolean
+                                                nullable: true
+                                                description: Flag indicating if backups are enabled (nullable)
+                                            price:
+                                                type: number
+                                                format: float
+                                                description: Price for the VPS service
+                                            priceWithVat:
+                                                type: number
+                                                format: float
+                                                description: Price for the VPS service with VAT
+                                            currency:
+                                                type: string
+                                                description: Currency code
+                                            period:
+                                                type: integer
+                                                nullable: true
+                                                description: Duration of the service billing period (nullable)
+                                            periodLength:
+                                                type: string
+                                                nullable: true
+                                                description: Length of the billing period (nullable)
+                                            priceDetail:
+                                                type: object
+                                                properties:
+                                                    prices:
+                                                        type: object
+                                                        additionalProperties:
+                                                            type: number
+                                                            format: float
+                                                        description: Pricing details for individual components
+                                                    pricesWithVat:
+                                                        type: object
+                                                        additionalProperties:
+                                                            type: number
+                                                            format: float
+                                                        description: Pricing details for individual components with VAT
+                                    errors:
+                                        type: object
+                                        additionalProperties:
+                                            type: array
+                                            items:
+                                                type: string
+                                        description: Object containing field-specific error messages
+                "500":
+                    description: Internal Server Error
+    /user/{userId}/paymentcard:
+        get:
+            summary: List of all payment cards
+            description: Retrieves the list of all payment cards for the logged-in user.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                    description: Payment card ID
+                                                name:
+                                                    type: string
+                                                    description: Masked payment card number
+                                                defaultBillingId:
+                                                    type: integer
+                                                    description: Default billing ID associated with the payment card
+                                                createTime:
+                                                    type: integer
+                                                    description: Timestamp indicating when the payment card was created
+                                    credit:
+                                        type: integer
+                                        description: User's credit
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/paymentcard/{paymentcardId}:
+        get:
+            summary: Get a payment card detail
+            description: Retrieves the details of a payment card by its ID.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: paymentcardId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Payment card ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Payment card ID
+                                    name:
+                                        type: string
+                                        description: Masked payment card number
+                                    defaultBillingId:
+                                        type: integer
+                                        description: Default billing ID associated with the payment card
+                                    createTime:
+                                        type: integer
+                                        description: Timestamp indicating when the payment card was created
+                "404":
+                    description: Payment card not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/order:
+        post:
+            summary: Order services
+            description: Orders multiple services.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                services:
+                                    type: array
+                                    items:
+                                        type: object
+                                        properties:
+                                            type:
+                                                type: string
+                                                description: Service type (e.g., domain, thehosting)
+                                            domain:
+                                                type: string
+                                                description: Domain name (required for domain service)
+                                            limit:
+                                                type: integer
+                                                description: Hosting limit in MB (required for thehosting service)
+                                            period:
+                                                type: integer
+                                                nullable: true
+                                                description: Service billing period in months (nullable)
+                                note:
+                                    type: string
+                                    description: Additional information for the helpdesk team
+            responses:
+                "201":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                        description: Status of the order
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                                description: Order ID
+                                            services:
+                                                type: array
+                                                items:
+                                                    type: object
+                                                    properties:
+                                                        status:
+                                                            type: string
+                                                            description: Status of the service
+                                                        item:
+                                                            type: object
+                                                            description: Service details
+                                                        errors:
+                                                            type: array
+                                                            items:
+                                                                type: object
+                                                            description: Error messages for the service
+                                            note:
+                                                type: string
+                                                description: Additional information for the helpdesk team
+                                    errors:
+                                        type: array
+                                        items:
+                                            type: object
+                                        description: Error messages for the order
+                "200":
+                    description: Validation error or input format error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                        description: Status of the order
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                                nullable: true
+                                                description: Order ID
+                                            services:
+                                                type: array
+                                                items:
+                                                    type: object
+                                                    properties:
+                                                        status:
+                                                            type: string
+                                                            description: Status of the service
+                                                        item:
+                                                            type: object
+                                                            description: Service details
+                                                        errors:
+                                                            type: object
+                                                            properties:
+                                                                domain:
+                                                                    type: array
+                                                                    items:
+                                                                        type: string
+                                                                    description: Error messages for the domain service
+                                                                limit:
+                                                                    type: array
+                                                                    items:
+                                                                        type: string
+                                                                    description: Error messages for the hosting service
+                                            note:
+                                                type: string
+                                                description: Additional information for the helpdesk team
+                                    errors:
+                                        type: object
+                                        properties:
+                                            services:
+                                                type: array
+                                                items:
+                                                    type: string
+                                                description: Error messages for the services in the order
+                "500":
+                    description: Internal Server Error
+    /user/{userId}/order/{orderId}/pay:
+        get:
+            summary: Get payment URLs
+            description: Retrieves the payment URLs for the specified order.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Order ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    tbtatrapay:
+                                        type: string
+                                        description: TatraPay payment URL
+                                    tbcardpay:
+                                        type: string
+                                        description: CardPay payment URL
+                                    vubeplatby:
+                                        type: string
+                                        description: VUB ePayments internet banking URL
+                                    comfortpay:
+                                        type: string
+                                        description: ComfortPay payment URL
+                "404":
+                    description: Order not found, not confirmed, or already paid
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/order/{orderId}/pay/byCredit:
+        put:
+            summary: Pay with credit
+            description: Pays for the specified order using credit.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Order ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: boolean
+                                        description: Indicates if the payment was successful
+                "404":
+                    description: Order not found, not confirmed, or already paid
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message
+    /user/{userId}/order/{orderId}/pay/byPaymentCard/{byPaymentCardId}:
+        put:
+            summary: Pay with a stored card
+            description: Pays for the specified order using a stored payment card.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: orderId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Order ID
+                - name: byPaymentCardId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Payment card ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: boolean
+                                        description: Indicates if the payment was successful
+                "404":
+                    description: Order not found, not confirmed, or already paid
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    code:
+                                        type: integer
+                                        description: Error code
+                                    message:
+                                        type: string
+                                        description: Error message

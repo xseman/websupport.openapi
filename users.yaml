@@ -1,0 +1,1467 @@
+openapi: 3.0.0
+info:
+    title: User API
+    version: 1.0.0
+servers:
+    - url: https://rest.websupport.sk/v1
+paths:
+    /user:
+        get:
+            summary: List all users
+            description: Retrieves a list of all users.
+            parameters:
+                - name: page
+                  in: query
+                  description: The page number.
+                  schema:
+                      type: integer
+                  required: false
+                - name: pagesize
+                  in: query
+                  description: The number of items per page.
+                  schema:
+                      type: integer
+                  required: false
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                login:
+                                                    type: string
+                                                parentId:
+                                                    type: integer
+                                                active:
+                                                    type: boolean
+                                                createTime:
+                                                    type: integer
+                                                group:
+                                                    type: string
+                                    pager:
+                                        type: object
+                                        properties:
+                                            page:
+                                                type: integer
+                                            pagesize:
+                                                type: integer
+                                            items:
+                                                type: integer
+                "401":
+                    description: Unauthorized
+        post:
+            summary: Create a new user
+            description: Creates a new user account.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                market:
+                                    type: string
+                                    description: 2-letter market identifier (e.g., sk, cz, hu, at)
+                                isSubUser:
+                                    type: boolean
+                                    description: Set to true if the user is a subuser (requires authentication)
+                                login:
+                                    type: string
+                                    description: Your login
+                                password:
+                                    type: string
+                                    description: Plain password
+                                email:
+                                    type: string
+                                    description: Email addresses separated by comma (,)
+                                name:
+                                    type: string
+                                    description: Company name or full name
+                                city:
+                                    type: string
+                                    description: City
+                                street:
+                                    type: string
+                                    description: Street + number
+                                zip:
+                                    type: string
+                                    description: Area ZIP code
+                                country:
+                                    type: string
+                                    description: Two-letter country identifier
+                                phone:
+                                    type: string
+                                    description: Phone number
+                                confirmTerms:
+                                    type: boolean
+                                    description: Confirm Terms and Conditions
+                                contactPerson:
+                                    type: string
+                                    description: Contact person in your company
+                                companyRegId:
+                                    type: string
+                                    description: Company registration ID
+                                taxId:
+                                    type: string
+                                    description: Tax ID
+                                vatId:
+                                    type: string
+                                    description: Value-added Tax (VAT) ID
+                                isic:
+                                    type: string
+                                    description: ISIC student identification card number (only for sk market)
+            responses:
+                "201":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            billingId:
+                                                type: integer
+                                            market:
+                                                type: string
+                                            group:
+                                                type: string
+                                            parentId:
+                                                type: integer
+                                            login:
+                                                type: string
+                                            email:
+                                                type: string
+                                            password:
+                                                type: string
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                            contactPerson:
+                                                type: string
+                                            phone:
+                                                type: string
+                                            isic:
+                                                type: string
+                                    errors:
+                                        type: array
+                                        items:
+                                            type: object
+                "200":
+                    description: Validation error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            billingId:
+                                                type: integer
+                                            market:
+                                                type: string
+                                            group:
+                                                type: string
+                                            parentId:
+                                                type: integer
+                                            login:
+                                                type: string
+                                            email:
+                                                type: string
+                                            password:
+                                                type: string
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                            contactPerson:
+                                                type: string
+                                            phone:
+                                                type: string
+                                            isic:
+                                                type: string
+                                    errors:
+                                        type: object
+                                        properties:
+                                            login:
+                                                type: array
+                                                items:
+                                                    type: string
+                                            market:
+                                                type: array
+                                                items:
+                                                    type: string
+    /user/{userId}:
+        get:
+            summary: Get user details
+            description: Retrieves detailed information about a specific user.
+            parameters:
+                - name: userId
+                  in: path
+                  description: The ID of the user or "self" to get the currently logged user's details.
+                  schema:
+                      type: string
+                  required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                    login:
+                                        type: string
+                                    parentId:
+                                        type: integer
+                                    active:
+                                        type: boolean
+                                    createTime:
+                                        type: integer
+                                    group:
+                                        type: string
+                                    email:
+                                        type: string
+                                    phone:
+                                        type: string
+                                    sknicHandle:
+                                        type: string
+                                    contactPerson:
+                                        type: string
+                                    resellerToken:
+                                        type: string
+                                    credit:
+                                        type: number
+                                    verifyUrl:
+                                        type: string
+                                    billing:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                profile:
+                                                    type: string
+                                                isDefault:
+                                                    type: boolean
+                                                name:
+                                                    type: string
+                                                city:
+                                                    type: string
+                                                street:
+                                                    type: string
+                                                companyRegId:
+                                                    type: string
+                                                taxId:
+                                                    type: string
+                                                vatId:
+                                                    type: string
+                                                zip:
+                                                    type: string
+                                                country:
+                                                    type: string
+                                                isic:
+                                                    type: string
+                                    market:
+                                        type: object
+                                        properties:
+                                            name:
+                                                type: string
+                                            identifier:
+                                                type: string
+                                            currency:
+                                                type: string
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+        put:
+            summary: Update user
+            description: Updates an existing user account.
+            parameters:
+                - name: userId
+                  in: path
+                  description: User ID or "self" to edit the currently logged user
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                password:
+                                    type: string
+                                    description: Plain password
+                                email:
+                                    type: string
+                                    description: Email addresses separated by comma (,)
+                                phone:
+                                    type: string
+                                    description: Phone number
+                                contactPerson:
+                                    type: string
+                                    description: Contact person in your company
+                                userLanguage:
+                                    type: string
+                                    description: Language used for notifications
+            responses:
+                "201":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            login:
+                                                type: string
+                                            email:
+                                                type: string
+                                            password:
+                                                type: string
+                                            phone:
+                                                type: string
+                                            contactPerson:
+                                                type: string
+                                    errors:
+                                        type: array
+                                        items:
+                                            type: object
+                "200":
+                    description: Validation error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            login:
+                                                type: string
+                                            email:
+                                                type: string
+                                            password:
+                                                type: string
+                                            phone:
+                                                type: string
+                                            contactPerson:
+                                                type: string
+                                    errors:
+                                        type: object
+                                        properties:
+                                            email:
+                                                type: array
+                                                items:
+                                                    type: string
+                                            password:
+                                                type: array
+                                                items:
+                                                    type: string
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+    /user/restorepass:
+        post:
+            summary: Password reset
+            description: Resets the password for a user account.
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                login:
+                                    type: string
+                                    description: User login
+            responses:
+                "201":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                "200":
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    errors:
+                                        type: object
+                                        properties:
+                                            login:
+                                                type: array
+                                                items:
+                                                    type: string
+    /user/{userId}/billing:
+        get:
+            summary: List of all billing profiles
+            description: Retrieves a list of all billing profiles for a user.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: page
+                  in: query
+                  description: Page number
+                  schema:
+                      type: integer
+                - name: pagesize
+                  in: query
+                  description: Page size
+                  schema:
+                      type: integer
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                profile:
+                                                    type: string
+                                                isDefault:
+                                                    type: boolean
+                                                name:
+                                                    type: string
+                                                city:
+                                                    type: string
+                                                street:
+                                                    type: string
+                                                companyRegId:
+                                                    type: string
+                                                taxId:
+                                                    type: string
+                                                vatId:
+                                                    type: string
+                                                zip:
+                                                    type: string
+                                                country:
+                                                    type: string
+                                                isic:
+                                                    type: string
+                                    pager:
+                                        type: object
+                                        properties:
+                                            page:
+                                                type: integer
+                                            pagesize:
+                                                type: integer
+                                            items:
+                                                type: integer
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+        post:
+            summary: Create a new billing profile
+            description: Creates a new billing profile for a user.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                profile:
+                                    type: string
+                                    description: Billing profile name
+                                isDefault:
+                                    type: boolean
+                                    default: false
+                                    description: Set this true if you want this profile set as primary billing profile
+                                name:
+                                    type: string
+                                    description: Company name or your full name
+                                city:
+                                    type: string
+                                    description: City
+                                street:
+                                    type: string
+                                    description: Street + number
+                                zip:
+                                    type: string
+                                    description: Area ZIP code
+                                country:
+                                    type: string
+                                    description: Two-letter country identifier
+                                companyRegId:
+                                    type: string
+                                    description: Company registration ID
+                                taxId:
+                                    type: string
+                                    description: Tax ID
+                                vatId:
+                                    type: string
+                                    description: Value-added Tax (VAT) ID
+                                isic:
+                                    type: string
+                                    description: ISIC Student Identification card number
+            responses:
+                "201":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            profile:
+                                                type: string
+                                            isDefault:
+                                                type: boolean
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                            isic:
+                                                type: string
+                                    errors:
+                                        type: array
+                                        items:
+                                            type: string
+                "200":
+                    description: Validation error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            profile:
+                                                type: string
+                                            isDefault:
+                                                type: boolean
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                            isic:
+                                                type: string
+                                    errors:
+                                        type: object
+                                        properties:
+                                            profile:
+                                                type: array
+                                                items:
+                                                    type: string
+                                            zip:
+                                                type: array
+                                                items:
+                                                    type: string
+                                            country:
+                                                type: array
+                                                items:
+                                                    type: string
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+    /user/{userId}/billing/{billingId}:
+        get:
+            summary: Get a billing profile detail
+            description: Retrieves the details of a billing profile by its ID.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: billingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Billing profile ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                    profile:
+                                        type: string
+                                    isDefault:
+                                        type: boolean
+                                    name:
+                                        type: string
+                                    city:
+                                        type: string
+                                    street:
+                                        type: string
+                                    companyRegId:
+                                        type: string
+                                    taxId:
+                                        type: string
+                                    vatId:
+                                        type: string
+                                    zip:
+                                        type: string
+                                    country:
+                                        type: string
+                                    isic:
+                                        type: string
+                "404":
+                    description: Billing info not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+        put:
+            summary: Update billing profile
+            description: Updates an existing billing profile.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: billingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Billing profile ID
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                profile:
+                                    type: string
+                                    description: Billing profile name
+                                isDefault:
+                                    type: boolean
+                                    description: Set this true if you want this profile set as primary billing profile
+                                name:
+                                    type: string
+                                    description: Company name or your full name
+                                city:
+                                    type: string
+                                    description: City
+                                street:
+                                    type: string
+                                    description: Street + number
+                                zip:
+                                    type: string
+                                    description: Area ZIP code
+                                country:
+                                    type: string
+                                    description: Two-letter country identifier
+                                companyRegId:
+                                    type: string
+                                    description: Company registration ID
+                                taxId:
+                                    type: string
+                                    description: Tax ID
+                                vatId:
+                                    type: string
+                                    description: Value-added Tax (VAT) ID
+                                isic:
+                                    type: string
+                                    description: ISIC Student Identification card number
+            responses:
+                "201":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            profile:
+                                                type: string
+                                            isDefault:
+                                                type: boolean
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                            isic:
+                                                type: string
+                                    errors:
+                                        type: array
+                                        items:
+                                            type: string
+                "200":
+                    description: Validation error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            profile:
+                                                type: string
+                                            isDefault:
+                                                type: boolean
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                            isic:
+                                                type: string
+                                    errors:
+                                        type: object
+                                        properties:
+                                            name:
+                                                type: array
+                                                items:
+                                                    type: string
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+        delete:
+            summary: Delete billing profile
+            description: Deletes a billing profile.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: billingId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Billing profile ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: integer
+                                            profile:
+                                                type: string
+                                            isDefault:
+                                                type: boolean
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                            isic:
+                                                type: string
+                                    errors:
+                                        type: array
+                                        items:
+                                            type: string
+                "404":
+                    description: Billing info not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+                "500":
+                    description: Error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+    /user/{userId}/domainProfile:
+        get:
+            summary: List of all domain profiles
+            description: Retrieves a list of all domain profiles.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: page
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      description: Page number for pagination
+                - name: pagesize
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      description: Number of items per page
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: string
+                                                firstName:
+                                                    type: string
+                                                lastName:
+                                                    type: string
+                                                orgName:
+                                                    type: string
+                                                street:
+                                                    type: string
+                                                city:
+                                                    type: string
+                                                zip:
+                                                    type: string
+                                                country:
+                                                    type: string
+                                                email:
+                                                    type: string
+                                                phone:
+                                                    type: string
+                                                identBirthday:
+                                                    type: string
+                                                identVat:
+                                                    type: string
+                                                identPassport:
+                                                    type: string
+                                                identCompanyRegistration:
+                                                    type: string
+                                                identIdentityCard:
+                                                    type: string
+                                    pager:
+                                        type: object
+                                        properties:
+                                            page:
+                                                type: integer
+                                            pagesize:
+                                                type: integer
+                                            items:
+                                                type: integer
+                "404":
+                    description: User not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+        post:
+            summary: Create new domain profile
+            description: Creates a new domain profile.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                firstName:
+                                    type: string
+                                    description: First name
+                                lastName:
+                                    type: string
+                                    description: Last name
+                                orgName:
+                                    type: string
+                                    description: Company name, if submitted a corporate domain profile will be created
+                                street:
+                                    type: string
+                                    description: Street + house number
+                                city:
+                                    type: string
+                                    description: City
+                                zip:
+                                    type: string
+                                    description: Postcode
+                                country:
+                                    type: string
+                                    description: Two-letter country identifier, ex. 'sk' for Slovakia (see more about identifiers)
+                                email:
+                                    type: string
+                                    description: Valid email address (will be used to authorize any subsequent change to assigned domain profile)
+                                phone:
+                                    type: string
+                                    description: "Phone number in the following form: +421900123456"
+                                identCompanyRegistration:
+                                    type: string
+                                    description: Company registration ID (IČO in Slovakia or Czech Republic), required for company-registered .sk domains
+                                identVat:
+                                    type: string
+                                    description: Value-added Tax (VAT) ID (IČ-DPH in Slovakia or Czech Republic)
+                                identIdentityCard:
+                                    type: string
+                                    description: Personal ID card number, required for registration of some TLDs
+                                identBirthday:
+                                    type: string
+                                    description: Birthdate (yyyy-M-d), required for registration of some TLDs
+                                identPassport:
+                                    type: string
+                                    description: Passport number, required for registration of some TLDs
+            responses:
+                "201":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                            firstName:
+                                                type: string
+                                            lastName:
+                                                type: string
+                                            orgName:
+                                                type: string
+                                            street:
+                                                type: string
+                                            city:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            email:
+                                                type: string
+                                            phone:
+                                                type: string
+                                            identBirthday:
+                                                type: string
+                                            identVat:
+                                                type: string
+                                            identPassport:
+                                                type: string
+                                            identCompanyRegistration:
+                                                type: string
+                                            identIdentityCard:
+                                                type: string
+                                    errors:
+                                        type: object
+                "200":
+                    description: Validation error
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                            firstName:
+                                                type: string
+                                            lastName:
+                                                type: string
+                                            orgName:
+                                                type: string
+                                            street:
+                                                type: string
+                                            city:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            email:
+                                                type: string
+                                            phone:
+                                                type: string
+                                            identBirthday:
+                                                type: string
+                                            identVat:
+                                                type: string
+                                            identPassport:
+                                                type: string
+                                            identCompanyRegistration:
+                                                type: string
+                                            identIdentityCard:
+                                                type: string
+                                    errors:
+                                        type: object
+    /user/{userId}/domainProfile/{domainProfileId}:
+        get:
+            summary: Get a domain profile
+            description: Retrieves a domain profile by ID.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: domainProfileId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Domain profile ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    firstName:
+                                        type: string
+                                    lastName:
+                                        type: string
+                                    orgName:
+                                        type: string
+                                    street:
+                                        type: string
+                                    city:
+                                        type: string
+                                    zip:
+                                        type: string
+                                    country:
+                                        type: string
+                                    email:
+                                        type: string
+                                    phone:
+                                        type: string
+                                    identBirthday:
+                                        type: string
+                                    identVat:
+                                        type: string
+                                    identPassport:
+                                        type: string
+                                    identCompanyRegistration:
+                                        type: string
+                                    identIdentityCard:
+                                        type: string
+                                    domains:
+                                        type: array
+                                        items:
+                                            type: string
+                                    pendingDomains:
+                                        type: array
+                                        items:
+                                            type: string
+                                    changeRequest:
+                                        type: array
+                                        items:
+                                            type: string
+                "404":
+                    description: Domain profile not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+        put:
+            summary: Update domain profile
+            description: Updates a domain profile by ID.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: domainProfileId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Domain profile ID
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                firstName:
+                                    type: string
+                                    description: First name
+                                lastName:
+                                    type: string
+                                    description: Last name
+                                orgName:
+                                    type: string
+                                    description: Company name, if submitted a corporate domain profile will be created
+                                street:
+                                    type: string
+                                    description: Street + house number
+                                city:
+                                    type: string
+                                    description: City
+                                zip:
+                                    type: string
+                                    description: Postcode
+                                country:
+                                    type: string
+                                    description: Two-letter country identifier, ex. 'sk' for Slovakia (see more about identifiers)
+                                email:
+                                    type: string
+                                    description: Valid email address (will be used to authorize any subsequent change to assigned domain profile)
+                                phone:
+                                    type: string
+                                    description: "Phone number in the following form: +421900123456"
+                                identCompanyRegistration:
+                                    type: string
+                                    description: Company registration ID (IČO in Slovakia or Czech Republic), required for company-registered .sk domains
+                                identVat:
+                                    type: string
+                                    description: Value-added Tax (VAT) ID (IČ-DPH in Slovakia or Czech Republic)
+                                identIdentityCard:
+                                    type: string
+                                    description: Personal ID card number, required for registration of some TLDs
+                                identBirthday:
+                                    type: string
+                                    description: Birthdate (yyyy-M-d), required for registration of some TLDs
+                                identPassport:
+                                    type: string
+                                    description: Passport number, required for registration of some TLDs
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: string
+                                    item:
+                                        type: object
+                                        properties:
+                                            id:
+                                                type: string
+                                            firstName:
+                                                type: string
+                                            lastName:
+                                                type: string
+                                            orgName:
+                                                type: string
+                                            street:
+                                                type: string
+                                            city:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            email:
+                                                type: string
+                                            phone:
+                                                type: string
+                                            identBirthday:
+                                                type: string
+                                            identVat:
+                                                type: string
+                                            identPassport:
+                                                type: string
+                                            identCompanyRegistration:
+                                                type: string
+                                            identIdentityCard:
+                                                type: string
+                                    errors:
+                                        type: object
+                "404":
+                    description: Not found
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer
+        delete:
+            summary: Delete domain profile
+            description: Deletes a domain profile by ID.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID or "self" for currently logged user
+                - name: domainProfileId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Domain profile ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
+                                    code:
+                                        type: integer

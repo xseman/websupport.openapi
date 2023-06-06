@@ -1,0 +1,396 @@
+openapi: 3.0.0
+info:
+    title: Invoices API
+    version: 1.0.0
+servers:
+    - url: https://rest.websupport.sk/v1
+paths:
+    /user/{userId}/invoice:
+        get:
+            summary: List of all invoices
+            description: Retrieves a list of all invoices for a specific user.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: page
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      description: Page number
+                - name: pagesize
+                  in: query
+                  required: false
+                  schema:
+                      type: integer
+                      description: Page size
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                id:
+                                                    type: integer
+                                                type:
+                                                    type: string
+                                                number:
+                                                    type: string
+                                                variable:
+                                                    type: string
+                                                createTime:
+                                                    type: integer
+                                                dateOfPerformance:
+                                                    type: integer
+                                                dueDate:
+                                                    type: integer
+                                                price:
+                                                    type: number
+                                                priceWithVat:
+                                                    type: number
+                                                vatPercent:
+                                                    type: integer
+                                                currency:
+                                                    type: string
+                                                items:
+                                                    type: array
+                                                    items:
+                                                        type: object
+                                                        properties:
+                                                            serviceName:
+                                                                type: string
+                                                            name:
+                                                                type: string
+                                                            price:
+                                                                type: number
+                                                            priceWithVat:
+                                                                type: number
+                                                            startTime:
+                                                                type: integer
+                                                            endTime:
+                                                                type: integer
+                                                billing:
+                                                    type: object
+                                                    properties:
+                                                        name:
+                                                            type: string
+                                                        city:
+                                                            type: string
+                                                        street:
+                                                            type: string
+                                                        zip:
+                                                            type: string
+                                                        country:
+                                                            type: string
+                                                        companyRegId:
+                                                            type: string
+                                                        taxId:
+                                                            type: string
+                                                        vatId:
+                                                            type: string
+                                                market:
+                                                    type: object
+                                                    properties:
+                                                        name:
+                                                            type: string
+                                                        identifier:
+                                                            type: string
+                                    pager:
+                                        type: object
+                                        properties:
+                                            page:
+                                                type: integer
+                                            pagesize:
+                                                type: integer
+                                            items:
+                                                type: integer
+                "401":
+                    description: Unauthorized
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+    /user/{userId}/invoice/{invoiceId}:
+        get:
+            summary: Get an invoice detail
+            description: Retrieves the details of a specific invoice.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: invoiceId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Invoice ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                    type:
+                                        type: string
+                                    number:
+                                        type: string
+                                    variable:
+                                        type: string
+                                    createTime:
+                                        type: integer
+                                    price:
+                                        type: number
+                                    priceWithVat:
+                                        type: number
+                                    vatPercent:
+                                        type: integer
+                                    currency:
+                                        type: string
+                                    items:
+                                        type: array
+                                        items:
+                                            type: object
+                                            properties:
+                                                serviceName:
+                                                    type: string
+                                                name:
+                                                    type: string
+                                                price:
+                                                    type: number
+                                                priceWithVat:
+                                                    type: number
+                                                startTime:
+                                                    type: integer
+                                                endTime:
+                                                    type: integer
+                                    billing:
+                                        type: object
+                                        properties:
+                                            name:
+                                                type: string
+                                            city:
+                                                type: string
+                                            street:
+                                                type: string
+                                            zip:
+                                                type: string
+                                            country:
+                                                type: string
+                                            companyRegId:
+                                                type: string
+                                            taxId:
+                                                type: string
+                                            vatId:
+                                                type: string
+                                    market:
+                                        type: object
+                                        properties:
+                                            name:
+                                                type: string
+                                            identifier:
+                                                type: string
+                "401":
+                    description: Unauthorized
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+    /user/{userId}/invoice/{invoiceId}/pdf:
+        get:
+            summary: Get an invoice PDF
+            description: Retrieves the PDF file of a specific invoice.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: invoiceId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Invoice ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                        description: Invoice ID
+                                    pdf:
+                                        type: string
+                                        format: byte
+                                        description: Base64 encoded PDF file
+                "401":
+                    description: Unauthorized
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+    /user/{userId}/invoice/{invoiceId}/raw-pdf:
+        get:
+            summary: Get an invoice PDF as RAW data
+            description: Retrieves the PDF file of a specific invoice as binary data.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: invoiceId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Invoice ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/pdf:
+                            schema:
+                                type: string
+                                format: binary
+                                description: PDF file as binary data
+                "401":
+                    description: Unauthorized
+                "403":
+                    description: Forbidden
+                "404":
+                    description: Not Found
+    /user/{userId}/invoice/{invoiceId}/pay:
+        get:
+            summary: Pay it
+            description: Provides payment options for an invoice.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: invoiceId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Invoice ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    tbtatrapay:
+                                        type: string
+                                        description: URL for TatraPay payment
+                                    tbcardpay:
+                                        type: string
+                                        description: URL for CardPay credit card payment
+                                    vubeplatby:
+                                        type: string
+                                        description: URL for VUB ePayments internet banking payment
+                                    comfortpay:
+                                        type: string
+                                        description: URL for ComfortPay recurring payment system
+                "401":
+                    description: Unauthorized
+                "404":
+                    description: Not Found
+    /user/{userId}/invoice/{invoiceId}/pay/byCredit:
+        put:
+            summary: Pay with credit
+            description: Pays an invoice using credits.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: invoiceId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Invoice ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: boolean
+                                        description: Indicates if the payment was successful
+                "401":
+                    description: Unauthorized
+                "404":
+                    description: Not Found
+    /user/{userId}/invoice/{invoiceId}/pay/byPaymentCard/{paymentCardId}:
+        put:
+            summary: Pay with a stored card
+            description: Pays an invoice using a stored payment card.
+            parameters:
+                - name: userId
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: User ID
+                - name: invoiceId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Invoice ID
+                - name: paymentCardId
+                  in: path
+                  required: true
+                  schema:
+                      type: integer
+                      description: Payment Card ID
+            responses:
+                "200":
+                    description: Success
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    status:
+                                        type: boolean
+                                        description: Indicates if the payment was successful
+                "401":
+                    description: Unauthorized
+                "404":
+                    description: Not Found
