@@ -4,6 +4,11 @@ info:
     version: 1.0.0
 servers:
     - url: https://rest.websupport.sk/v1
+components:
+    securitySchemes:
+        basicAuth:
+            type: http
+            scheme: basic
 paths:
     # VPS Management
     /user/{userId}/vps:
@@ -11,7 +16,7 @@ paths:
             summary: List all VPS servers
             description: Retrieves a list of Virtual Private Servers (VPS) associated with the user.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -19,6 +24,13 @@ paths:
                   schema:
                       type: string
                       description: User ID or "self" for currently logged user
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -62,7 +74,7 @@ paths:
             summary: Get VPS detail
             description: Retrieves detailed information about a Virtual Private Server (VPS) by ID or name.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -76,6 +88,13 @@ paths:
                   schema:
                       type: string
                       description: VPS ID or name
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -142,7 +161,7 @@ paths:
             summary: Get VNC console
             description: Retrieves the VNC console information for a Virtual Private Server (VPS) by ID or name.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -156,6 +175,13 @@ paths:
                   schema:
                       type: string
                       description: VPS ID or name
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -196,7 +222,7 @@ paths:
             summary: CPU Stats
             description: Get CPU statistics for a Virtual Private Server (VPS).
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -223,6 +249,13 @@ paths:
                   schema:
                       type: integer
                       description: Number of shown measurements (time period depends on the chosen interval)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -279,7 +312,7 @@ paths:
             summary: Traffic Stats
             description: Get traffic statistics for a Virtual Private Server (VPS).
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -306,6 +339,13 @@ paths:
                   schema:
                       type: integer
                       description: Number of shown measurements (time period depends on the chosen interval)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -354,7 +394,7 @@ paths:
             summary: List VPS Snapshots
             description: Retrieve a list of all snapshots for the specified VPS.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -368,6 +408,13 @@ paths:
                   schema:
                       type: string
                       description: VPS ID or name
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -405,7 +452,7 @@ paths:
             summary: Reboot VPS
             description: Reboots a Virtual Private Server (VPS) by ID or name.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -419,6 +466,13 @@ paths:
                   schema:
                       type: string
                       description: VPS ID or name
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -458,7 +512,7 @@ paths:
             summary: Hard Reboot VPS
             description: Performs a hard reboot of a Virtual Private Server (VPS) by ID or name.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -472,6 +526,13 @@ paths:
                   schema:
                       type: string
                       description: VPS ID or name
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -511,7 +572,7 @@ paths:
             summary: List VPS Snapshots
             description: Retrieve a list of all snapshots for the specified VPS.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -525,6 +586,13 @@ paths:
                   schema:
                       type: string
                       description: VPS ID or name
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -562,7 +630,7 @@ paths:
             summary: Create VPS Snapshot
             description: Saves the current state of the specified VPS into a snapshot.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -576,6 +644,13 @@ paths:
                   schema:
                       type: string
                       description: VPS ID or name
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 content:
                     application/json:
@@ -612,7 +687,7 @@ paths:
                                     status:
                                         type: string
                                         description: Status of the snapshot
-                                        
+
                 "403":
                     description: Forbidden
                     content:
@@ -634,7 +709,7 @@ paths:
             summary: Restore VPS from Snapshot
             description: Rollbacks the specified VPS to the state of the specified snapshot.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -654,6 +729,13 @@ paths:
                   schema:
                       type: string
                       description: Name of the snapshot to restore
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "204":
                     description: No Content
@@ -661,7 +743,7 @@ paths:
             summary: Delete VPS Snapshot
             description: Deletes the specified VPS snapshot.
             tags:
-              - VPS Management
+                - VPS Management
             parameters:
                 - name: userId
                   in: path
@@ -681,6 +763,13 @@ paths:
                   schema:
                       type: string
                       description: Name of the snapshot to delete
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "204":
                     description: No Content

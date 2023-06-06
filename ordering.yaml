@@ -4,6 +4,11 @@ info:
     version: 1.0.0
 servers:
     - url: https://rest.websupport.sk/v1
+components:
+    securitySchemes:
+        basicAuth:
+            type: http
+            scheme: basic
 paths:
     # Listing of available services
     /order/{market}:
@@ -11,7 +16,7 @@ paths:
             summary: List of available services
             description: Retrieves a list of available services and their prices for a specific market.
             tags:
-              - Listing of available services
+                - Listing of available services
             parameters:
                 - name: market
                   in: path
@@ -19,6 +24,13 @@ paths:
                   schema:
                       type: string
                       description: Market identifier (e.g., sk, cz, hu, at)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -89,7 +101,7 @@ paths:
             summary: Service details
             description: Retrieves details of a specific service for a given market.
             tags:
-              - Listing of available services
+                - Listing of available services
             parameters:
                 - name: market
                   in: path
@@ -103,6 +115,13 @@ paths:
                   schema:
                       type: string
                       description: Service type (e.g., domain, thehosting, etc.)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -131,14 +150,28 @@ paths:
                                         description: Currency code
                 "404":
                     description: Not Found
-    
+
     # Validating services and loading prices
     /order/{market}/validate:
         post:
             summary: Validate multiple services
             description: Validates multiple services in a single request.
             tags:
-              - Validating services and loading prices
+                - Validating services and loading prices
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -161,13 +194,6 @@ paths:
                                         type: integer
                                         nullable: true
                                         description: Service billing period in months (nullable)
-            parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
             responses:
                 "200":
                     description: Success
@@ -196,7 +222,21 @@ paths:
             summary: Validate credit
             description: Validates order attributes for credit service.
             tags:
-              - Validating services and loading prices
+                - Validating services and loading prices
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -207,13 +247,6 @@ paths:
                                 amount:
                                     type: integer
                                     description: Amount to order (1 credit is 1 EUR, HUF or CZK depending on market)
-            parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
             responses:
                 "200":
                     description: Success
@@ -264,7 +297,21 @@ paths:
             summary: Validate a domain
             description: Validates order attributes for a domain.
             tags:
-              - Validating services and loading prices
+                - Validating services and loading prices
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -284,13 +331,6 @@ paths:
                                 contactId:
                                     type: string
                                     description: Custom contact ID
-            parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
             responses:
                 "200":
                     description: Success
@@ -356,7 +396,21 @@ paths:
             summary: Validate The Hosting service
             description: Validates order attributes for The Hosting service.
             tags:
-              - Validating services and loading prices
+                - Validating services and loading prices
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -370,13 +424,6 @@ paths:
                                 period:
                                     type: integer
                                     description: "Service billing period in months (range: 1~12, default: 1)"
-            parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
             responses:
                 "200":
                     description: Success
@@ -425,7 +472,21 @@ paths:
             summary: Validate VPS
             description: Validates order attributes for VPS service.
             tags:
-              - Validating services and loading prices
+                - Validating services and loading prices
+            parameters:
+                - name: market
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      description: Market identifier (e.g., sk, cz, hu, at)
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -463,13 +524,6 @@ paths:
                                     type: boolean
                                     nullable: true
                                     description: Flag indicating if backups are enabled (nullable)
-            parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
             responses:
                 "200":
                     description: Success
@@ -554,14 +608,14 @@ paths:
                                         description: Object containing field-specific error messages
                 "500":
                     description: Internal Server Error
-    
+
     # Ordering a new service
     /user/{userId}/order:
         post:
             summary: Order services
             description: Orders multiple services.
             tags:
-              - Ordering a new service
+                - Ordering a new service
             parameters:
                 - name: userId
                   in: path
@@ -569,6 +623,13 @@ paths:
                   schema:
                       type: string
                       description: User ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -692,14 +753,14 @@ paths:
                                                 description: Error messages for the services in the order
                 "500":
                     description: Internal Server Error
-    
+
     # Credit card, internet banking and credit payments
     /user/{userId}/order/{orderId}/pay:
         get:
             summary: Get payment URLs
             description: Retrieves the payment URLs for the specified order.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -713,6 +774,13 @@ paths:
                   schema:
                       type: string
                       description: Order ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -751,7 +819,7 @@ paths:
             summary: Pay with credit
             description: Pays for the specified order using credit.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -765,6 +833,13 @@ paths:
                   schema:
                       type: string
                       description: Order ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -794,7 +869,7 @@ paths:
             summary: Pay with a stored card
             description: Pays for the specified order using a stored payment card.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -814,6 +889,13 @@ paths:
                   schema:
                       type: string
                       description: Payment card ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -843,7 +925,7 @@ paths:
             summary: List of all payment cards
             description: Retrieves the list of all payment cards for the logged-in user.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -851,6 +933,13 @@ paths:
                   schema:
                       type: string
                       description: User ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -897,7 +986,7 @@ paths:
             summary: Get a payment card detail
             description: Retrieves the details of a payment card by its ID.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -911,6 +1000,13 @@ paths:
                   schema:
                       type: integer
                       description: Payment card ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -944,4 +1040,3 @@ paths:
                                     message:
                                         type: string
                                         description: Error message
-    

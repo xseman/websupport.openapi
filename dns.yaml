@@ -4,6 +4,11 @@ info:
     version: 1.0.0
 servers:
     - url: https://rest.websupport.sk/v1
+components:
+    securitySchemes:
+        basicAuth:
+            type: http
+            scheme: basic
 paths:
     # DNS zone management resources
     /user/{userId}/zone:
@@ -11,7 +16,7 @@ paths:
             summary: List of all zones
             description: Retrieves a list of all zones.
             tags:
-              - DNS zone management resources
+                - DNS zone management resources
             parameters:
                 - name: userId
                   in: path
@@ -29,6 +34,13 @@ paths:
                   schema:
                       type: integer
                       description: Number of items per page
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -65,7 +77,7 @@ paths:
             summary: Get a zone detail
             description: Retrieves the details of a specific zone by its domain name.
             tags:
-              - DNS zone management resources
+                - DNS zone management resources
             parameters:
                 - name: userId
                   in: path
@@ -79,6 +91,13 @@ paths:
                   schema:
                       type: string
                       description: Domain name of the zone
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -109,14 +128,14 @@ paths:
                                     message:
                                         type: string
                                         description: Error message
-    
+
     # Record management resources
     /user/{userId}/zone/{domainName}/record:
         get:
             summary: List all records
             description: Retrieves a list of all records for a specific zone.
             tags:
-              - Record management resources
+                - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -142,6 +161,13 @@ paths:
                   schema:
                       type: integer
                       description: Number of items per page for pagination
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -208,7 +234,7 @@ paths:
             summary: Create a new record
             description: Creates a new DNS record for a specific domain name and zone.
             tags:
-              - Record management resources
+                - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -222,6 +248,13 @@ paths:
                   schema:
                       type: string
                       description: Domain name of the zone
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -406,7 +439,7 @@ paths:
             summary: Get a record
             description: Retrieves a specific record by its domain name and record ID.
             tags:
-              - Record management resources
+                - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -426,6 +459,13 @@ paths:
                   schema:
                       type: integer
                       description: Record ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -487,7 +527,7 @@ paths:
             summary: Update a record
             description: Updates an existing DNS record for a specific domain name, zone, and record ID.
             tags:
-              - Record management resources
+                - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -507,6 +547,13 @@ paths:
                   schema:
                       type: integer
                       description: ID of the record to update
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -666,7 +713,7 @@ paths:
             summary: Delete a record
             description: Deletes an existing DNS record for a specific domain name, zone, and record ID.
             tags:
-              - Record management resources
+                - Record management resources
             parameters:
                 - name: userId
                   in: path
@@ -686,6 +733,13 @@ paths:
                   schema:
                       type: integer
                       description: ID of the record to delete
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success

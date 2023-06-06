@@ -4,6 +4,11 @@ info:
     version: 1.0.0
 servers:
     - url: https://rest.websupport.sk/v1
+components:
+    securitySchemes:
+        basicAuth:
+            type: http
+            scheme: basic
 paths:
     # Invoice management resources
     /user/{userId}/invoice:
@@ -31,6 +36,13 @@ paths:
                   schema:
                       type: integer
                       description: Page size
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -143,6 +155,13 @@ paths:
                   schema:
                       type: integer
                       description: Invoice ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -237,6 +256,13 @@ paths:
                   schema:
                       type: integer
                       description: Invoice ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -277,6 +303,13 @@ paths:
                   schema:
                       type: integer
                       description: Invoice ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -292,14 +325,14 @@ paths:
                     description: Forbidden
                 "404":
                     description: Not Found
-    
+
     # Credit card, internet banking and credit payments
     /user/{userId}/invoice/{invoiceId}/pay:
         get:
             summary: Pay it
             description: Provides payment options for an invoice.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -313,6 +346,13 @@ paths:
                   schema:
                       type: integer
                       description: Invoice ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -342,7 +382,7 @@ paths:
             summary: Pay with credit
             description: Pays an invoice using credits.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -356,6 +396,13 @@ paths:
                   schema:
                       type: integer
                       description: Invoice ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -376,7 +423,7 @@ paths:
             summary: Pay with a stored card
             description: Pays an invoice using a stored payment card.
             tags:
-              - Credit card, internet banking and credit payments
+                - Credit card, internet banking and credit payments
             parameters:
                 - name: userId
                   in: path
@@ -396,6 +443,13 @@ paths:
                   schema:
                       type: integer
                       description: Payment Card ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success

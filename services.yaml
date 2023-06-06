@@ -4,6 +4,11 @@ info:
     version: 1.0.0
 servers:
     - url: https://rest.websupport.sk/v1
+components:
+    securitySchemes:
+        basicAuth:
+            type: http
+            scheme: basic
 paths:
     # Service management
     /user/{userId}/service:
@@ -11,7 +16,7 @@ paths:
             summary: List of all services
             description: Retrieves information about all services.
             tags:
-              - Service management
+                - Service management
             parameters:
                 - name: userId
                   in: path
@@ -19,6 +24,13 @@ paths:
                   schema:
                       type: string
                       description: User ID or "self" for currently logged user
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -66,7 +78,7 @@ paths:
             summary: Get a service detail
             description: Retrieves detailed information about a specific service.
             tags:
-              - Service management
+                - Service management
             parameters:
                 - name: userId
                   in: path
@@ -80,6 +92,13 @@ paths:
                   schema:
                       type: integer
                       description: Service ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -114,7 +133,7 @@ paths:
             summary: Update service
             description: Updates the settings of a specific service.
             tags:
-              - Service management
+                - Service management
             parameters:
                 - name: userId
                   in: path
@@ -128,6 +147,13 @@ paths:
                   schema:
                       type: integer
                       description: Service ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:

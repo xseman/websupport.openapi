@@ -4,13 +4,18 @@ info:
     version: 1.0.0
 servers:
     - url: https://rest.websupport.sk/v1
+components:
+    securitySchemes:
+        basicAuth:
+            type: http
+            scheme: basic
 paths:
     # User management resources
     /user:
         get:
             summary: List all users
             description: Retrieves a list of all users.
-            tags: 
+            tags:
                 - User management resources
             parameters:
                 - name: page
@@ -25,6 +30,13 @@ paths:
                   schema:
                       type: integer
                   required: false
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: OK
@@ -64,8 +76,16 @@ paths:
         post:
             summary: Create a new user
             description: Creates a new user account.
-            tags: 
+            tags:
                 - User management resources
+            parameters:
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -244,7 +264,7 @@ paths:
         get:
             summary: Get user details
             description: Retrieves detailed information about a specific user.
-            tags: 
+            tags:
                 - User management resources
             parameters:
                 - name: userId
@@ -253,6 +273,13 @@ paths:
                   schema:
                       type: string
                   required: true
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: OK
@@ -339,7 +366,7 @@ paths:
         put:
             summary: Update user
             description: Updates an existing user account.
-            tags: 
+            tags:
                 - User management resources
             parameters:
                 - name: userId
@@ -348,6 +375,13 @@ paths:
                   required: true
                   schema:
                       type: string
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -449,8 +483,16 @@ paths:
         post:
             summary: Password reset
             description: Resets the password for a user account.
-            tags: 
+            tags:
                 - User management resources
+            parameters:
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -487,7 +529,7 @@ paths:
                                                 type: array
                                                 items:
                                                     type: string
-    
+
     # Billing profile management resources
     /user/{userId}/billing:
         get:
@@ -512,6 +554,13 @@ paths:
                   description: Page size
                   schema:
                       type: integer
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -581,6 +630,13 @@ paths:
                   schema:
                       type: string
                       description: User ID or "self" for currently logged user
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -744,6 +800,13 @@ paths:
                   schema:
                       type: integer
                       description: Billing profile ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -805,6 +868,13 @@ paths:
                   schema:
                       type: integer
                       description: Billing profile ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -958,6 +1028,13 @@ paths:
                   schema:
                       type: integer
                       description: Billing profile ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -1021,7 +1098,7 @@ paths:
                                         type: string
                                     code:
                                         type: integer
-    
+
     # Domain profile management resources
     /user/{userId}/domainProfile:
         get:
@@ -1048,6 +1125,13 @@ paths:
                   schema:
                       type: integer
                       description: Number of items per page
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -1123,6 +1207,13 @@ paths:
                   schema:
                       type: string
                       description: User ID or "self" for currently logged user
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -1280,6 +1371,13 @@ paths:
                   schema:
                       type: string
                       description: Domain profile ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
@@ -1359,6 +1457,13 @@ paths:
                   schema:
                       type: string
                       description: Domain profile ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             requestBody:
                 required: true
                 content:
@@ -1482,6 +1587,13 @@ paths:
                   schema:
                       type: string
                       description: Domain profile ID
+                - name: date
+                  in: header
+                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
+                  required: true
+                  schema:
+                      type: string
+                      format: date-time
             responses:
                 "200":
                     description: Success
