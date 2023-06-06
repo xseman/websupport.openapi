@@ -9,7 +9,7 @@ address any issues.
 
 [documentation]: https://rest.websupport.sk/docs/index
 
-## Avaible APIs
+# Avaible APIs
 
 - [dns](./dns.yaml)
 - [hosting](./hosting.yaml)
@@ -18,3 +18,7 @@ address any issues.
 - [services](./services.yaml)
 - [users](./users.yaml)
 - [vps](./vps.yaml)
+
+# swagger-ui
+
+<http://xseman.github.io/openapi.websupport>
