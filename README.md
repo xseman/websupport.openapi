@@ -7,8 +7,6 @@ evolves over time. I'm making an effort to keep it up to date.
 I would greatly appreciate any contributions or updates to the OpenAPI file to
 address any issues.
 
-[documentation]: https://rest.websupport.sk/docs/index
-
 # Avaible APIs
 
 - [dns](./dns.yaml)
@@ -19,6 +17,16 @@ address any issues.
 - [users](./users.yaml)
 - [vps](./vps.yaml)
 
+# Auth
+
+See [documentation][auth-documentation] with examples.
+
+You may also explore [signature.sh](./scripts/signature.sh), which is based
+on the examples provided in the documentation.
+
 # swagger-ui
 
-<http://xseman.github.io/openapi.websupport>
+<http://xseman.github.io/websupport.openapi>
+
+[documentation]: https://rest.websupport.sk/docs/index
+[auth-documentation]: https://rest.websupport.sk/docs/v1.intro
