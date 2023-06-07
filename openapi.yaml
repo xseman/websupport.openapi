@@ -16,29 +16,10 @@ paths:
             tags:
                 - DNS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: page
-                  in: query
-                  schema:
-                      type: integer
-                      description: Page number
-                - name: pagesize
-                  in: query
-                  schema:
-                      type: integer
-                      description: Number of items per page
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/Page"
+                - $ref: "#/components/parameters/PageSize"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -77,25 +58,9 @@ paths:
             tags:
                 - DNS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name of the zone
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -133,37 +98,11 @@ paths:
             tags:
                 - DNS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name of the zone
-                - name: page
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Page number for pagination
-                - name: pagesize
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of items per page for pagination
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainName"
+                - $ref: "#/components/parameters/Page"
+                - $ref: "#/components/parameters/PageSize"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -232,25 +171,9 @@ paths:
             tags:
                 - DNS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name of the zone
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainName"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -437,31 +360,10 @@ paths:
             tags:
                 - DNS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name of the zone
-                - name: recordId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Record ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainName"
+                - $ref: "#/components/parameters/RecordId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -525,31 +427,10 @@ paths:
             tags:
                 - DNS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name of the zone
-                - name: recordId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: ID of the record to update
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainName"
+                - $ref: "#/components/parameters/RecordId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -711,31 +592,10 @@ paths:
             tags:
                 - DNS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name of the zone
-                - name: recordId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: ID of the record to delete
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainName"
+                - $ref: "#/components/parameters/RecordId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -813,31 +673,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: page
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Page number
-                - name: pagesize
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of items per page
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/Page"
+                - $ref: "#/components/parameters/PageSize"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -892,25 +731,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: id-or-uuid
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Service ID or UUID of the hosting
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/IdOrUUID"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -948,25 +771,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1078,31 +885,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: vhostId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Vhost ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/VhostID"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1197,25 +983,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1259,25 +1029,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1318,25 +1072,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1380,25 +1118,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1472,25 +1194,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -1571,31 +1277,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: dbId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Database ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DatabaseId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1647,31 +1332,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: dbId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Database ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DatabaseId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -1736,31 +1400,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: dbId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Database ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DatabaseId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1813,25 +1456,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1894,43 +1521,12 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: dbId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Database ID
-                - name: interval
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      description: Time interval (day or hour)
-                - name: length
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of shown measurements (time period depends on chosen interval)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DatabaseId"
+                - $ref: "#/components/parameters/Interval"
+                - $ref: "#/components/parameters/Length"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -1962,43 +1558,12 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: dbId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Database ID
-                - name: interval
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      description: Time interval (day, hour, or minute)
-                - name: length
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of shown measurements (time period depends on chosen interval)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DatabaseId"
+                - $ref: "#/components/parameters/Interval"
+                - $ref: "#/components/parameters/Length"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -2087,25 +1652,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -2184,31 +1733,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: mailboxId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Mailbox ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/MailboxId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -2264,37 +1792,11 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: domainId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Domain ID
-                - name: mailboxId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Mailbox ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DomainId"
+                - $ref: "#/components/parameters/MailboxId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -2364,31 +1866,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: domainId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Domain ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DomainId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -2501,37 +1982,11 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: domainId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Domain ID
-                - name: mailboxId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Mailbox ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DomainId"
+                - $ref: "#/components/parameters/MailboxId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -2641,39 +2096,11 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: interval
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      enum: [day, hour]
-                      default: day
-                      description: Time interval for measurements (day or hour)
-                - name: length
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of shown measurements
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/Interval"
+                - $ref: "#/components/parameters/Length"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -2711,45 +2138,12 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: domain
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain name
-                - name: interval
-                  in: query
-                  required: false
-                  schema:
-                      type: string
-                      enum: [day, hour]
-                      default: day
-                      description: Time interval for measurements (day or hour)
-                - name: length
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of shown measurements
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/DomainName"
+                - $ref: "#/components/parameters/Interval"
+                - $ref: "#/components/parameters/Length"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -2782,25 +2176,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -2852,25 +2230,9 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -2986,31 +2348,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: ftpAccountId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: FTP account ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/FTPAccountId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3070,31 +2411,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: ftpAccountId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: FTP account ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/FTPAccountId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -3224,31 +2544,10 @@ paths:
             tags:
                 - Hosting service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: hostingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Hosting ID
-                - name: ftpAccountId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: FTP account ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/HostingId"
+                - $ref: "#/components/parameters/FTPAccountId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3317,31 +2616,10 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: page
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Page number
-                - name: pagesize
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Page size
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/Page"
+                - $ref: "#/components/parameters/PageSize"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3442,25 +2720,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: invoiceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Invoice ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/InvoiceId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3543,25 +2805,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: invoiceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Invoice ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/InvoiceId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3590,25 +2836,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: invoiceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Invoice ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/InvoiceId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3631,25 +2861,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: invoiceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Invoice ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/InvoiceId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3681,25 +2895,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: invoiceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Invoice ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/InvoiceId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3722,31 +2920,10 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: invoiceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Invoice ID
-                - name: paymentCardId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Payment Card ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/InvoiceId"
+                - $ref: "#/components/parameters/PaymentCardId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3771,19 +2948,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Market"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3856,25 +3022,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
-                - name: type
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Service type (e.g., domain, thehosting, etc.)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Market"
+                - $ref: "#/components/parameters/Type"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -3910,19 +3060,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Market"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -3975,19 +3114,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Market"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -4050,19 +3178,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Market"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -4149,19 +3266,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Market"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -4225,19 +3331,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: market
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Market identifier (e.g., sk, cz, hu, at)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Market"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -4366,19 +3461,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -4509,25 +3593,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: orderId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Order ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/OrderId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -4568,25 +3636,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: orderId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Order ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/OrderId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -4618,31 +3670,10 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: orderId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Order ID
-                - name: byPaymentCardId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Payment card ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/OrderId"
+                - $ref: "#/components/parameters/ByPaymentCardId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -4674,19 +3705,8 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -4735,25 +3755,9 @@ paths:
             tags:
                 - Order service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID
-                - name: paymentcardId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Payment card ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/PaymentCardId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -4796,19 +3800,8 @@ paths:
             tags:
                 - Service management
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -4858,25 +3851,9 @@ paths:
             tags:
                 - Service management
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: serviceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Service ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/ServiceId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -4913,25 +3890,9 @@ paths:
             tags:
                 - Service management
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: serviceId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Service ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/ServiceId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -4988,25 +3949,9 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: page
-                  in: query
-                  description: The page number.
-                  schema:
-                      type: integer
-                  required: false
-                - name: pagesize
-                  in: query
-                  description: The number of items per page.
-                  schema:
-                      type: integer
-                  required: false
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/Page"
+                - $ref: "#/components/parameters/PageSize"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: OK
@@ -5049,13 +3994,7 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -5237,19 +4176,8 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  description: The ID of the user or "self" to get the currently logged user's details.
-                  schema:
-                      type: string
-                  required: true
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: OK
@@ -5339,19 +4267,8 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  description: User ID or "self" to edit the currently logged user
-                  required: true
-                  schema:
-                      type: string
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -5456,13 +4373,7 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -5506,29 +4417,10 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: page
-                  in: query
-                  description: Page number
-                  schema:
-                      type: integer
-                - name: pagesize
-                  in: query
-                  description: Page size
-                  schema:
-                      type: integer
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/Page"
+                - $ref: "#/components/parameters/PageSize"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -5592,19 +4484,8 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -5756,25 +4637,9 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: billingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Billing profile ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/BillingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -5824,25 +4689,9 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: billingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Billing profile ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/BillingId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -5984,25 +4833,9 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: billingId
-                  in: path
-                  required: true
-                  schema:
-                      type: integer
-                      description: Billing profile ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/BillingId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6073,31 +4906,10 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: page
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Page number for pagination
-                - name: pagesize
-                  in: query
-                  required: false
-                  schema:
-                      type: integer
-                      description: Number of items per page
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/Page"
+                - $ref: "#/components/parameters/PageSize"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6167,19 +4979,8 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -6325,25 +5126,9 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainProfileId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain profile ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainProfileId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6411,25 +5196,9 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainProfileId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain profile ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainProfileId"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 required: true
                 content:
@@ -6541,25 +5310,9 @@ paths:
             tags:
                 - User service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: domainProfileId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Domain profile ID
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/DomainProfileId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6587,19 +5340,8 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6645,25 +5387,9 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6732,25 +5458,9 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6793,38 +5503,11 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: interval
-                  in: query
-                  required: true
-                  schema:
-                      type: string
-                      enum: [day, hour, minute]
-                      description: Time interval for CPU measurements (day, hour, or minute)
-                - name: length
-                  in: query
-                  required: true
-                  schema:
-                      type: integer
-                      description: Number of shown measurements (time period depends on the chosen interval)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/Interval"
+                - $ref: "#/components/parameters/Length"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6883,38 +5566,11 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: interval
-                  in: query
-                  required: true
-                  schema:
-                      type: string
-                      enum: [day, hour, minute]
-                      description: Time interval for traffic measurements (day, hour, or minute)
-                - name: length
-                  in: query
-                  required: true
-                  schema:
-                      type: integer
-                      description: Number of shown measurements (time period depends on the chosen interval)
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/Interval"
+                - $ref: "#/components/parameters/Length"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -6965,25 +5621,9 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -7023,25 +5663,9 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -7083,25 +5707,9 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -7143,25 +5751,9 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "200":
                     description: Success
@@ -7201,25 +5793,9 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/RequiredDate"
             requestBody:
                 content:
                     application/json:
@@ -7280,31 +5856,10 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: snapshotName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Name of the snapshot to restore
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/SnapshotName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "204":
                     description: No Content
@@ -7314,31 +5869,10 @@ paths:
             tags:
                 - VPS service
             parameters:
-                - name: userId
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: User ID or "self" for currently logged user
-                - name: vpsIdOrName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: VPS ID or name
-                - name: snapshotName
-                  in: path
-                  required: true
-                  schema:
-                      type: string
-                      description: Name of the snapshot to delete
-                - name: date
-                  in: header
-                  description: The time used for the signature in the ISO8601 basic format, in the GMT timezone.
-                  required: true
-                  schema:
-                      type: string
-                      format: date-time
+                - $ref: "#/components/parameters/UserId"
+                - $ref: "#/components/parameters/VpsIdOrName"
+                - $ref: "#/components/parameters/SnapshotName"
+                - $ref: "#/components/parameters/RequiredDate"
             responses:
                 "204":
                     description: No Content
@@ -7348,3 +5882,198 @@ components:
         basicAuth:
             type: http
             scheme: basic
+
+    parameters:
+        RequiredDate:
+            name: date
+            in: header
+            required: true
+            example: 2023-01-01T00:00:00Z
+            schema:
+                type: string
+                format: date-time
+            description: >
+                Date header with the time used for the signature
+                in the ISO8601 basic format, in the GMT timezone.
+        UserId:
+            name: userId
+            in: path
+            required: true
+            schema:
+                type: string
+                description: >
+                    User ID or "self" for currently logged user
+        Page:
+            name: page
+            in: query
+            required: false
+            schema:
+                type: integer
+                description: Page number
+        PageSize:
+            name: pagesize
+            in: query
+            required: false
+            schema:
+                type: integer
+                description: Number of items per page
+        RecordId:
+            name: recordId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Record ID
+        IdOrUUID:
+            name: id-or-uuid
+            in: path
+            required: true
+            schema:
+                type: string
+                description: Service ID or UUID of the hosting
+        HostingId:
+            name: hostingId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Hosting ID
+        VhostID:
+            name: vhostId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Vhost ID
+        DatabaseId:
+            name: dbId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Database ID
+        DomainName:
+            name: domainName
+            in: path
+            required: true
+            schema:
+                type: string
+                description: Domain name of the zone
+        Interval:
+            name: interval
+            in: query
+            required: false
+            schema:
+                type: string
+                enum: [day, hour]
+                default: day
+                description: Time interval for measurements (day or hour)
+        Length:
+            name: length
+            in: query
+            required: false
+            schema:
+                type: integer
+                description: >
+                    Number of shown measurements (time perioddepends on
+                    choseninterval)
+        MailboxId:
+            name: mailboxId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Mailbox ID
+        DomainId:
+            name: domainId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Domain ID
+        FTPAccountId:
+            name: ftpAccountId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: FTP account ID
+        InvoiceId:
+            name: invoiceId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Invoice ID
+        PaymentCardId:
+            name: paymentCardId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Payment Card ID
+        Market:
+            name: market
+            in: path
+            required: true
+            schema:
+                type: string
+                description: >
+                    Market identifier (e.g., sk, cz, hu, at)
+        Type:
+            name: type
+            in: path
+            required: true
+            schema:
+                type: string
+                description: >
+                    Service type (e.g., domain, thehosting, etc.)
+        OrderId:
+            name: orderId
+            in: path
+            required: true
+            schema:
+                type: string
+                description: Order ID
+        ByPaymentCardId:
+            name: byPaymentCardId
+            in: path
+            required: true
+            schema:
+                type: string
+                description: Payment card ID
+        ServiceId:
+            name: serviceId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Service ID
+        BillingId:
+            name: billingId
+            in: path
+            required: true
+            schema:
+                type: integer
+                description: Billing profile ID
+        DomainProfileId:
+            name: domainProfileId
+            in: path
+            required: true
+            schema:
+                type: string
+                description: Domain profile ID
+        VpsIdOrName:
+            name: vpsIdOrName
+            in: path
+            required: true
+            schema:
+                type: string
+                description: VPS ID or name
+        SnapshotName:
+            name: snapshotName
+            in: path
+            required: true
+            schema:
+                type: string
+                description: Name of the snapshot to restore
