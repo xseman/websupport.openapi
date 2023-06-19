@@ -6,18 +6,20 @@
 		<title>Websupport OpenAPI</title>
 		<link
 			rel="stylesheet"
-			href="https://esm.sh/swagger-ui@4.19.0/dist/swagger-ui.css"
+			href="https://esm.sh/swagger-ui@5.0.0/dist/swagger-ui.css"
 		/>
 	</head>
 
 	<body>
 		<div id="swagger-ui"></div>
-		<script type="module">
-			import swagger from "https://esm.sh/swagger-ui-dist@4.19.0/"
-			swagger.SwaggerUIBundle({
-				url: 'https://raw.githubusercontent.com/xseman/websupport.openapi/master/openapi.yaml',
-				dom_id: '#swagger-ui',
-			})
+		<script type="importmap">
+			{ 
+				"imports": {
+					"crypto-js": "https://esm.sh/crypto-js",
+					"swagger-ui-dist": "https://esm.sh/swagger-ui-dist@5.0.0"
+				}
+			}
 		</script>
+		<script type="module" src="./swagger-ui.js"></script>
 	</body>
 </html>

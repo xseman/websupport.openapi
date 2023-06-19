@@ -1,0 +1,9 @@
+{
+	"scripts": {
+		"start": "npx @web/dev-server --root-dir ./../ --open /docs/"
+	},
+	"devDependencies": {
+		"@types/crypto-js": "~4.1.0",
+		"@types/swagger-ui-dist": "~3.30.0"
+	}
+}
