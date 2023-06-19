@@ -3314,7 +3314,11 @@ components:
         basicAuth:
             type: http
             scheme: basic
-            description: https://rest.websupport.sk/docs/v1.intro
+            description: |
+                [documentation](https://rest.websupport.sk/docs/v1.intro)
+
+                __username__ -> apiKey  
+                __password__ -> secret
 
     parameters:
         RequiredDate:
