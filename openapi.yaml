@@ -7,10 +7,13 @@ externalDocs:
     url: https://rest.websupport.sk/docs/index
 servers:
     - url: https://rest.websupport.sk/v1
+security:
+    - basicAuth: []
 paths:
     # DNS service
     /user/{userId}/zone:
         get:
+            operationId: listAllZones
             summary: List of all zones
             description: Retrieves a list of all zones.
             tags:
@@ -43,6 +46,7 @@ paths:
                                         $ref: "#/components/schemas/Pager"
     /user/{userId}/zone/{domainName}:
         get:
+            operationId: getZoneDetail
             summary: Get a zone detail
             description: Retrieves the details of a specific zone by its domain name.
             tags:
@@ -72,6 +76,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/zone/{domainName}/record:
         get:
+            operationId: listAllZoneRecords
             summary: List all records
             description: >
                 Retrieves a list of all records for a specific zone.
@@ -100,6 +105,7 @@ paths:
                 "404":
                     $ref: "#/components/responses/NotFound"
         post:
+            operationId: createZoneRecord
             summary: Create a new record
             description: Creates a new DNS record for a specific domain name and zone.
             tags:
@@ -207,6 +213,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/zone/{domainName}/record/{recordId}:
         get:
+            operationId: getZoneRecordById
             summary: Get a record
             description: Retrieves a specific record by its domain name and record ID.
             tags:
@@ -263,6 +270,7 @@ paths:
                 "404":
                     $ref: "#/components/responses/NotFound"
         put:
+            operationId: updateZoneRecord
             summary: Update a record
             description: Updates an existing DNS record for a specific domain name, zone, and record ID.
             tags:
@@ -417,6 +425,7 @@ paths:
                 "404":
                     $ref: "#/components/responses/NotFound"
         delete:
+            operationId: deleteZoneRecord
             summary: Delete a record
             description: Deletes an existing DNS record for a specific domain name, zone, and record ID.
             tags:
@@ -487,6 +496,7 @@ paths:
     # Hosting service
     /user/{userId}/hosting:
         get:
+            operationId: listAllHostings
             summary: List of all hostings
             description: Retrieves a list of all hostings for a specific user.
             tags:
@@ -524,6 +534,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{id-or-uuid}:
         get:
+            operationId: getHostingDetail
             summary: Get a hosting detail
             description: Retrieves details of a specific hosting by service ID or UUID.
             tags:
@@ -553,6 +564,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{hostingId}/vhost:
         get:
+            operationId: listAllVhosts
             summary: List of all webhosting domains (vhosts)
             description: >
                 Retrieves a list of all webhosting domains (vhosts) for a
@@ -581,6 +593,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{hostingId}/vhost/{vhostId}:
         get:
+            operationId: getVhostDetail
             summary: Get a webhosting domain (vhost) detail
             description: >
                 Retrieves the details of a specific webhosting domain (vhost).f
@@ -602,6 +615,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{hostingId}/size-stats:
         get:
+            operationId: getHostingSizeStats
             summary: Get hosting size
             description: Retrieves the size information of a specific hosting.
             tags:
@@ -621,6 +635,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{hostingId}/domain-stats:
         get:
+            operationId: getHostingDomainStats
             summary: Get hosting domains usage
             description: Retrieves the usage information of domains in a specific hosting.
             tags:
@@ -640,6 +655,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{hostingId}/ftp-stats:
         get:
+            operationId: getHostingFtpStats
             summary: Get FTP size
             description: Retrieves the size information of FTP storage in a specific hosting.
             tags:
@@ -659,6 +675,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{hostingId}/db:
         get:
+            operationId: listAllDatabases
             summary: List of all databases
             description: Retrieves a list of all databases in a specific hosting.
             tags:
@@ -689,6 +706,7 @@ paths:
                 "404":
                     $ref: "#/components/responses/NotFound"
         post:
+            operationId: createHostingDb
             summary: Create new database
             description: Creates a new database in the specified hosting.
             tags:
@@ -720,6 +738,7 @@ paths:
                                         description: Request status (success or error)
     /user/{userId}/hosting/{hostingId}/db/{dbId}:
         get:
+            operationId: getDbDetail
             summary: Get database detail
             description: Retrieves details of a specific database in a hosting.
             tags:
@@ -739,6 +758,7 @@ paths:
                 "404":
                     $ref: "#/components/responses/NotFound"
         put:
+            operationId: updateDb
             summary: Update database
             description: Updates an existing database in the specified hosting.
             tags:
@@ -770,6 +790,7 @@ paths:
                                         type: string
                                         description: Request status (success or error)
         delete:
+            operationId: deleteDb
             summary: Delete a database
             description: Deletes the specified database from the hosting.
             tags:
@@ -796,6 +817,7 @@ paths:
                                         description: Request status (success or error)
     /user/{userId}/hosting/{hostingId}/dbusers:
         get:
+            operationId: listAllDbUsers
             summary: List of all databases users
             description: Retrieves a list of all database users in a specific hosting.
             tags:
@@ -840,6 +862,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/hosting/{hostingId}/db/{dbId}/size-stats:
         get:
+            operationId: getDbSizeStats
             summary: DB size
             description: Retrieves the size statistics of the specified database.
             tags:
@@ -875,6 +898,7 @@ paths:
                                         $ref: "#/components/schemas/Range"
     /user/{userId}/hosting/{hostingId}/db/{dbId}/cpu-stats:
         get:
+            operationId: getDbCpuStats
             summary: DB CPU
             description: Retrieves the CPU statistics of the specified database.
             tags:
@@ -967,6 +991,7 @@ paths:
                                         $ref: "#/components/schemas/Range"
     /user/{userId}/hosting/{hostingId}/mailbox:
         get:
+            operationId: listAllMailboxes
             summary: List of all mailboxes
             description: Retrieves a list of all mailboxes for the specified user and hosting.
             tags:
@@ -996,6 +1021,7 @@ paths:
                                         description: List of domains
     /user/{userId}/hosting/{hostingId}/mailbox/{mailboxId}:
         get:
+            operationId: getMailboxDetail
             summary: Get mailbox detail
             description: Retrieves detailed information about a specific mailbox.
             tags:
@@ -1013,6 +1039,7 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/Mailbox"
         delete:
+            operationId: deleteMailbox
             summary: Delete mailbox
             description: Deletes an existing mailbox.
             tags:
@@ -1040,6 +1067,7 @@ paths:
                                         description: Request status ('success' or 'error')
     /user/{userId}/hosting/{hostingId}/domain/{domainId}/mailbox:
         post:
+            operationId: createDomainMailbox
             summary: Create new mailbox
             description: Creates a new mailbox for a specific domain.
             tags:
@@ -1072,6 +1100,7 @@ paths:
                                         description: Request status ('success' or 'error')
     /user/{userId}/hosting/{hostingId}/domain/{domainId}/mailbox/{mailboxId}:
         post:
+            operationId: updateDomainMailbox
             summary: Update mailbox
             description: Updates an existing mailbox.
             tags:
@@ -1105,6 +1134,7 @@ paths:
                                         description: Request status ('success' or 'error')
     /user/{userId}/hosting/{hostingId}/mail/size-stats:
         get:
+            operationId: getMailSizeStats
             summary: Get email size history per hosting
             description: Retrieves the email size history per hosting for multiple domains.
             tags:
@@ -1145,6 +1175,7 @@ paths:
                                         $ref: "#/components/schemas/Range"
     /user/{userId}/hosting/{hostingId}/mail/{domain}/size-stats:
         get:
+            operationId: getMailDomainSizeStats
             summary: Get email size history per domain
             description: Retrieves the email size history per domain.
             tags:
@@ -1181,6 +1212,7 @@ paths:
                                         $ref: "#/components/schemas/Range"
     /user/{userId}/hosting/{hostingId}/ftp-account:
         get:
+            operationId: listAllFtpAccounts
             summary: List of all FTP accounts
             description: Retrieves a list of all FTP accounts for the specified user and hosting.
             tags:
@@ -1226,6 +1258,7 @@ paths:
                                     pager:
                                         $ref: "#/components/schemas/Pager"
         put:
+            operationId: createFtpAccount
             summary: Create new FTP account
             description: Creates a new FTP account.
             tags:
@@ -1257,6 +1290,7 @@ paths:
                                         $ref: "#/components/schemas/ValidationErrors"
     /user/{userId}/hosting/{hostingId}/ftp-account/{ftpAccountId}:
         get:
+            operationId: getFtpAccountDetail
             summary: Get FTP account detail
             description: Retrieves the details of a specific FTP account.
             tags:
@@ -1274,6 +1308,7 @@ paths:
                             schema:
                                 $ref: "#/components/schemas/FTPAccount"
         post:
+            operationId: updateFtpAccount
             summary: Update FTP account
             description: Updates an existing FTP account.
             tags:
@@ -1315,6 +1350,7 @@ paths:
                                     errors:
                                         $ref: "#/components/schemas/ValidationErrors"
         delete:
+            operationId: deleteFtpAccount
             summary: Delete FTP account
             description: Deletes an existing FTP account.
             tags:
@@ -1341,6 +1377,7 @@ paths:
     # Invoice service
     /user/{userId}/invoice:
         get:
+            operationId: listAllInvoices
             summary: List of all invoices
             description: Retrieves a list of all invoices for a specific user.
             tags:
@@ -1372,6 +1409,7 @@ paths:
                     description: Not Found
     /user/{userId}/invoice/{invoiceId}:
         get:
+            operationId: getInvoiceDetail
             summary: Get an invoice detail
             description: Retrieves the details of a specific invoice.
             tags:
@@ -1395,6 +1433,7 @@ paths:
                     description: Not Found
     /user/{userId}/invoice/{invoiceId}/pdf:
         get:
+            operationId: getInvoicePdf
             summary: Get an invoice PDF
             description: Retrieves the PDF file of a specific invoice.
             tags:
@@ -1426,6 +1465,7 @@ paths:
                     description: Not Found
     /user/{userId}/invoice/{invoiceId}/raw-pdf:
         get:
+            operationId: getInvoiceRawPdf
             summary: Get an invoice PDF as RAW data
             description: Retrieves the PDF file of a specific invoice as binary data.
             tags:
@@ -1451,6 +1491,7 @@ paths:
                     description: Not Found
     /user/{userId}/invoice/{invoiceId}/pay:
         get:
+            operationId: payInvoice
             summary: Pay it
             description: Provides payment options for an invoice.
             tags:
@@ -1472,6 +1513,7 @@ paths:
                     description: Not Found
     /user/{userId}/invoice/{invoiceId}/pay/byCredit:
         put:
+            operationId: payInvoiceByCredit
             summary: Pay with credit
             description: Pays an invoice using credits.
             tags:
@@ -1497,6 +1539,7 @@ paths:
                     description: Not Found
     /user/{userId}/invoice/{invoiceId}/pay/byPaymentCard/{paymentCardId}:
         put:
+            operationId: payInvoiceByPaymentCard
             summary: Pay with a stored card
             description: Pays an invoice using a stored payment card.
             tags:
@@ -1525,8 +1568,11 @@ paths:
     # Order service
     /order/{market}:
         get:
+            operationId: listAvailableMarketServices
             summary: List of available services
-            description: Retrieves a list of available services and their prices for a specific market.
+            description: >
+                Retrieves a list of available services and their prices for a
+                specific market. 
             tags:
                 - Order service
             parameters:
@@ -1599,8 +1645,10 @@ paths:
                     description: Not Found
     /order/{market}/{type}:
         get:
+            operationId: getMarketServiceDetail
             summary: Service details
-            description: Retrieves details of a specific service for a given market.
+            description: >
+                Retrieves details of a specific service for a given market.
             tags:
                 - Order service
             parameters:
@@ -1637,6 +1685,7 @@ paths:
                     description: Not Found
     /order/{market}/validate:
         post:
+            operationId: validateOrderMarket
             summary: Validate multiple services
             description: >
                 Validates multiple services in a single request.
@@ -1692,6 +1741,7 @@ paths:
                     description: Internal Server Error
     /order/{market}/validate/credit:
         post:
+            operationId: validateOrderMarketCredit
             summary: Validate credit
             description: >
                 Validates order attributes for credit service.
@@ -1736,6 +1786,7 @@ paths:
                     description: Internal Server Error
     /order/{market}/validate/domain:
         post:
+            operationId: validateOrderMarketDomain
             summary: Validate a domain
             description: Validates order attributes for a domain.
             tags:
@@ -1778,6 +1829,7 @@ paths:
                     description: Internal Server Error
     /order/{market}/validate/thehosting:
         post:
+            operationId: validateOrderMarketHosting
             summary: Validate The Hosting service
             description: Validates order attributes for The Hosting service.
             tags:
@@ -1815,6 +1867,7 @@ paths:
                     description: Internal Server Error
     /order/{market}/validate/vps:
         post:
+            operationId: validateOrderMarketVps
             summary: Validate VPS
             description: Validates order attributes for VPS service.
             tags:
@@ -1855,6 +1908,7 @@ paths:
                     description: Internal Server Error
     /user/{userId}/order:
         post:
+            operationId: createUserOrder
             summary: Order services
             description: Orders multiple services.
             tags:
@@ -1991,6 +2045,7 @@ paths:
                     description: Internal Server Error
     /user/{userId}/order/{orderId}/pay:
         get:
+            operationId: payUserOrder
             summary: Get payment URLs
             description: Retrieves the payment URLs for the specified order.
             tags:
@@ -2010,6 +2065,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/order/{orderId}/pay/byCredit:
         put:
+            operationId: payUserOrderByCredit
             summary: Pay with credit
             description: Pays for the specified order using credit.
             tags:
@@ -2033,6 +2089,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/order/{orderId}/pay/byPaymentCard/{byPaymentCardId}:
         put:
+            operationId: payUserOrderByPaymentCard
             summary: Pay with a stored card
             description: Pays for the specified order using a stored payment card.
             tags:
@@ -2057,6 +2114,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/paymentcard:
         get:
+            operationId: listAllPaymentCards
             summary: List of all payment cards
             description: Retrieves the list of all payment cards for the logged-in user.
             tags:
@@ -2083,6 +2141,7 @@ paths:
                     $ref: "#/components/responses/NotFound"
     /user/{userId}/paymentcard/{paymentcardId}:
         get:
+            operationId: getPaymentCardDetail
             summary: Get a payment card detail
             description: Retrieves the details of a payment card by its ID.
             tags:
@@ -2104,6 +2163,7 @@ paths:
     # Service management
     /user/{userId}/service:
         get:
+            operationId: listAllServices
             summary: List of all services
             description: Retrieves information about all services.
             tags:
@@ -2131,6 +2191,7 @@ paths:
                     description: Forbidden
     /user/{userId}/service/{serviceId}:
         get:
+            operationId: getServiceDetail
             summary: Get a service detail
             description: Retrieves detailed information about a specific service.
             tags:
@@ -2153,6 +2214,7 @@ paths:
                 "404":
                     description: Not Found
         put:
+            operationId: updateService
             summary: Update service
             description: Updates the settings of a specific service.
             tags:
@@ -2195,6 +2257,7 @@ paths:
     # User service
     /user:
         get:
+            operationId: listAllUsers
             summary: List all users
             description: Retrieves a list of all users.
             tags:
@@ -2233,6 +2296,7 @@ paths:
                 "401":
                     description: Unauthorized
         post:
+            operationId: createUser
             summary: Create a new user
             description: Creates a new user account.
             tags:
@@ -2285,6 +2349,7 @@ paths:
                                                     type: string
     /user/{userId}:
         get:
+            operationId: getUserDetail
             summary: Get a user detail
             description: >
                 Retrieves detailed information about a specific user.
@@ -2312,6 +2377,7 @@ paths:
                                     code:
                                         type: integer
         put:
+            operationId: updateUser
             summary: Update user
             description: Updates an existing user account.
             tags:
@@ -2376,6 +2442,7 @@ paths:
                                         type: integer
     /user/restorepass:
         post:
+            operationId: restoreUserPassword
             summary: Password reset
             description: Resets the password for a user account.
             tags:
@@ -2420,6 +2487,7 @@ paths:
                                                     type: string
     /user/{userId}/billing:
         get:
+            operationId: listAllBillingProfiles
             summary: List of all billing profiles
             description: Retrieves a list of all billing profiles for a user.
             tags:
@@ -2455,6 +2523,7 @@ paths:
                                     code:
                                         type: integer
         post:
+            operationId: createBillingProfile
             summary: Create a new billing profile
             description: Creates a new billing profile for a user.
             tags:
@@ -2523,6 +2592,7 @@ paths:
                                         type: integer
     /user/{userId}/billing/{billingId}:
         get:
+            operationId: getBillingProfileDetail
             summary: Get a billing profile detail
             description: Retrieves the details of a billing profile by its ID.
             tags:
@@ -2550,6 +2620,7 @@ paths:
                                     code:
                                         type: integer
         put:
+            operationId: updateBillingProfile
             summary: Update billing profile
             description: Updates an existing billing profile.
             tags:
@@ -2610,6 +2681,7 @@ paths:
                                     code:
                                         type: integer
         delete:
+            operationId: deleteBillingProfile
             summary: Delete billing profile
             description: Deletes a billing profile.
             tags:
@@ -2658,6 +2730,7 @@ paths:
                                         type: integer
     /user/{userId}/domainProfile:
         get:
+            operationId: listAllDomainProfiles
             summary: List of all domain profiles
             description: Retrieves a list of all domain profiles.
             tags:
@@ -2693,6 +2766,7 @@ paths:
                                     code:
                                         type: integer
         post:
+            operationId: createDomainProfile
             summary: Create new domain profile
             description: Creates a new domain profile.
             tags:
@@ -2735,6 +2809,7 @@ paths:
                                         type: object
     /user/{userId}/domainProfile/{domainProfileId}:
         get:
+            operationId: getDomainProfileDetail
             summary: Get a domain profile
             description: Retrieves a domain profile by ID.
             tags:
@@ -2777,6 +2852,7 @@ paths:
                                     code:
                                         type: integer
         put:
+            operationId: updateDomainProfile
             summary: Update domain profile
             description: Updates a domain profile by ID.
             tags:
@@ -2817,6 +2893,7 @@ paths:
                                     code:
                                         type: integer
         delete:
+            operationId: deleteDomainProfile
             summary: Delete domain profile
             description: Deletes a domain profile by ID.
             tags:
@@ -2847,6 +2924,7 @@ paths:
     # VPS service
     /user/{userId}/vps:
         get:
+            operationId: listAllVpsServers
             summary: List all VPS servers
             description: Retrieves a list of Virtual Private Servers (VPS) associated with the user.
             tags:
@@ -2884,6 +2962,7 @@ paths:
                                         $ref: "#/components/schemas/Pager"
     /user/{userId}/vps/{vpsIdOrName}:
         get:
+            operationId: getVpsDetail
             summary: Get VPS detail
             description: Retrieves detailed information about a Virtual Private Server (VPS) by ID or name.
             tags:
@@ -2901,6 +2980,7 @@ paths:
                                 $ref: "#/components/schemas/VPSDetail"
     /user/{userId}/vps/{vpsIdOrName}/vnc:
         get:
+            operationId: getVpsVnc
             summary: Get VNC console
             description: Retrieves the VNC console information for a Virtual Private Server (VPS) by ID or name.
             tags:
@@ -2931,6 +3011,7 @@ paths:
                                         $ref: "#/components/schemas/VNC"
     /user/{userId}/vps/{vpsIdOrName}/cpu-stats:
         get:
+            operationId: getVpsCpuStats
             summary: CPU Stats
             description: Get CPU statistics for a Virtual Private Server (VPS).
             tags:
@@ -2992,6 +3073,7 @@ paths:
                                         description: CPU measurements
     /user/{userId}/vps/{vpsIdOrName}/traffic-stats:
         get:
+            operationId: getVpsTrafficStats
             summary: Traffic Stats
             description: Get traffic statistics for a Virtual Private Server (VPS).
             tags:
@@ -3044,31 +3126,8 @@ paths:
                                                     type: integer
                                                     description: Incoming packets
     /user/{userId}/vps/{vpsIdOrName}/reboot:
-        get:
-            summary: List VPS Snapshots
-            description: Retrieve a list of all snapshots for the specified VPS.
-            tags:
-                - VPS service
-            parameters:
-                - $ref: "#/components/parameters/UserId"
-                - $ref: "#/components/parameters/VpsIdOrName"
-                - $ref: "#/components/parameters/RequiredDate"
-            responses:
-                "200":
-                    description: Success
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                required:
-                                    - items
-                                properties:
-                                    items:
-                                        type: array
-                                        description: List of snapshots
-                                        items:
-                                            $ref: "#/components/schemas/Snapshot"
         put:
+            operationId: rebootVps
             summary: Reboot VPS
             description: Reboots a Virtual Private Server (VPS) by ID or name.
             tags:
@@ -3108,6 +3167,7 @@ paths:
                                         $ref: "#/components/schemas/ValidationErrors"
     /user/{userId}/vps/{vpsIdOrName}/hard-reboot:
         put:
+            operationId: hardRebootVps
             summary: Hard Reboot VPS
             description: >
                 Performs a hard reboot of a Virtual Private Server (VPS) by ID
@@ -3149,6 +3209,7 @@ paths:
                                         $ref: "#/components/schemas/ValidationErrors"
     /user/{userId}/vps/{vpsIdOrName}/snapshot:
         get:
+            operationId: listVpsSnapshots
             summary: List VPS Snapshots
             description: >
                 Retrieve a list of all snapshots for the specified VPS.
@@ -3174,6 +3235,7 @@ paths:
                                         items:
                                             $ref: "#/components/schemas/Snapshot"
         post:
+            operationId: createVpsSnapshot
             summary: Create VPS Snapshot
             description: Saves the current state of the specified VPS into a snapshot.
             tags:
@@ -3219,6 +3281,7 @@ paths:
                                         description: Error message
     /user/{userId}/vps/{vpsIdOrName}/snapshot/{snapshotName}:
         post:
+            operationId: getVpsSnapshotDetail
             summary: Restore VPS from Snapshot
             description: Rollbacks the specified VPS to the state of the specified snapshot.
             tags:
@@ -3232,6 +3295,7 @@ paths:
                 "204":
                     description: No Content
         delete:
+            operationId: deleteVpsSnapshot
             summary: Delete VPS Snapshot
             description: Deletes the specified VPS snapshot.
             tags:
@@ -3254,8 +3318,8 @@ components:
 
     parameters:
         RequiredDate:
-            name: date
             in: header
+            name: date
             required: true
             example: 2023-01-01T00:00:00Z
             schema:
@@ -3266,16 +3330,17 @@ components:
                 in the ISO8601 basic format, in the GMT timezone.
 
         UserId:
-            name: userId
             in: path
+            name: userId
             required: true
             schema:
-                oneOf:
+                anyOf:
                     - type: string
-                      enum: [self]
                     - type: string
-                      description: >
-                          User ID or "self" for currently logged user
+                      enum:
+                          - self
+            description: >
+                User ID, "self" for currently logged user
 
         Page:
             name: page
@@ -3294,48 +3359,48 @@ components:
                 description: Number of items per page
 
         RecordId:
-            name: recordId
             in: path
+            name: recordId
             required: true
             schema:
                 type: integer
                 description: Record ID
 
         IdOrUUID:
-            name: id-or-uuid
             in: path
+            name: id-or-uuid
             required: true
             schema:
                 type: string
                 description: Service ID or UUID of the hosting
 
         HostingId:
-            name: hostingId
             in: path
+            name: hostingId
             required: true
             schema:
                 type: integer
                 description: Hosting ID
 
         VhostID:
-            name: vhostId
             in: path
+            name: vhostId
             required: true
             schema:
                 type: integer
                 description: Vhost ID
 
         DatabaseId:
-            name: dbId
             in: path
+            name: dbId
             required: true
             schema:
                 type: integer
                 description: Database ID
 
         DomainName:
-            name: domainName
             in: path
+            name: domainName
             required: true
             schema:
                 type: string
@@ -3362,47 +3427,47 @@ components:
                     choseninterval)
 
         MailboxId:
-            name: mailboxId
             in: path
+            name: mailboxId
             required: true
             schema:
                 type: integer
                 description: Mailbox ID
 
         DomainId:
-            name: domainId
             in: path
+            name: domainId
             required: true
             schema:
                 type: integer
                 description: Domain ID
 
         FTPAccountId:
-            name: ftpAccountId
             in: path
+            name: ftpAccountId
             required: true
             schema:
                 type: integer
                 description: FTP account ID
         InvoiceId:
-            name: invoiceId
             in: path
+            name: invoiceId
             required: true
             schema:
                 type: integer
                 description: Invoice ID
 
         PaymentCardId:
-            name: paymentCardId
             in: path
+            name: paymentCardId
             required: true
             schema:
                 type: integer
                 description: Payment Card ID
 
         Market:
-            name: market
             in: path
+            name: market
             required: true
             schema:
                 type: string
@@ -3410,8 +3475,8 @@ components:
                     Market identifier (e.g., sk, cz, hu, at)
 
         Type:
-            name: type
             in: path
+            name: type
             required: true
             schema:
                 type: string
@@ -3419,55 +3484,55 @@ components:
                     Service type (e.g., domain, thehosting, etc.)
 
         OrderId:
-            name: orderId
             in: path
+            name: orderId
             required: true
             schema:
                 type: string
                 description: Order ID
 
         ByPaymentCardId:
-            name: byPaymentCardId
             in: path
+            name: byPaymentCardId
             required: true
             schema:
                 type: string
                 description: Payment card ID
 
         ServiceId:
-            name: serviceId
             in: path
+            name: serviceId
             required: true
             schema:
                 type: integer
                 description: Service ID
 
         BillingId:
-            name: billingId
             in: path
+            name: billingId
             required: true
             schema:
                 type: integer
                 description: Billing profile ID
 
         DomainProfileId:
-            name: domainProfileId
             in: path
+            name: domainProfileId
             required: true
             schema:
                 type: string
                 description: Domain profile ID
 
         VpsIdOrName:
-            name: vpsIdOrName
             in: path
+            name: vpsIdOrName
             required: true
             schema:
                 type: string
                 description: VPS ID or name
         SnapshotName:
-            name: snapshotName
             in: path
+            name: snapshotName
             required: true
             schema:
                 type: string
