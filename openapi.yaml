@@ -1,14 +1,41 @@
 openapi: 3.0.0
+
 info:
     title: Websupport API
     version: 1.0.0
     description: Purpose of this API is to enable to manage services provided by Websupport.
+
 externalDocs:
     url: https://rest.websupport.sk/docs/index
+
 servers:
     - url: https://rest.websupport.sk/v1
+
 security:
     - basicAuth: []
+
+tags:
+    - name: User service
+      externalDocs:
+          url: https://rest.websupport.sk/docs/v1.user
+    - name: Service management
+      externalDocs:
+          url: https://rest.websupport.sk/docs/v1.service
+    - name: Invoice service
+      externalDocs:
+          url: https://rest.websupport.sk/docs/v1.invoice
+    - name: Ordering service
+      externalDocs:
+          url: https://rest.websupport.sk/docs/v1.order
+    - name: DNS service
+      externalDocs:
+          url: https://rest.websupport.sk/docs/v1.zone
+    - name: Hosting service
+      externalDocs:
+          url: https://rest.websupport.sk/docs/v1.hosting
+    - name: VPS service
+      externalDocs:
+          url: https://rest.websupport.sk/docs/v1.vps
 paths:
     # DNS service
     /user/{userId}/zone:
@@ -1381,7 +1408,7 @@ paths:
             summary: List of all invoices
             description: Retrieves a list of all invoices for a specific user.
             tags:
-                - Order service
+                - Invoice service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/Page"
@@ -1413,7 +1440,7 @@ paths:
             summary: Get an invoice detail
             description: Retrieves the details of a specific invoice.
             tags:
-                - Order service
+                - Invoice service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
@@ -1437,7 +1464,7 @@ paths:
             summary: Get an invoice PDF
             description: Retrieves the PDF file of a specific invoice.
             tags:
-                - Order service
+                - Invoice service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
@@ -1469,7 +1496,7 @@ paths:
             summary: Get an invoice PDF as RAW data
             description: Retrieves the PDF file of a specific invoice as binary data.
             tags:
-                - Order service
+                - Invoice service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
@@ -1495,7 +1522,7 @@ paths:
             summary: Pay it
             description: Provides payment options for an invoice.
             tags:
-                - Order service
+                - Invoice service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
@@ -1517,7 +1544,7 @@ paths:
             summary: Pay with credit
             description: Pays an invoice using credits.
             tags:
-                - Order service
+                - Invoice service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
@@ -1543,7 +1570,7 @@ paths:
             summary: Pay with a stored card
             description: Pays an invoice using a stored payment card.
             tags:
-                - Order service
+                - Invoice service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
@@ -1572,9 +1599,9 @@ paths:
             summary: List of available services
             description: >
                 Retrieves a list of available services and their prices for a
-                specific market. 
+                specific market.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -1650,7 +1677,7 @@ paths:
             description: >
                 Retrieves details of a specific service for a given market.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/Type"
@@ -1690,7 +1717,7 @@ paths:
             description: >
                 Validates multiple services in a single request.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -1746,7 +1773,7 @@ paths:
             description: >
                 Validates order attributes for credit service.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -1790,7 +1817,7 @@ paths:
             summary: Validate a domain
             description: Validates order attributes for a domain.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -1833,7 +1860,7 @@ paths:
             summary: Validate The Hosting service
             description: Validates order attributes for The Hosting service.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -1871,8 +1898,7 @@ paths:
             summary: Validate VPS
             description: Validates order attributes for VPS service.
             tags:
-                - Order service
-                - VPS service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -1912,7 +1938,7 @@ paths:
             summary: Order services
             description: Orders multiple services.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -2049,7 +2075,7 @@ paths:
             summary: Get payment URLs
             description: Retrieves the payment URLs for the specified order.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/OrderId"
@@ -2069,7 +2095,7 @@ paths:
             summary: Pay with credit
             description: Pays for the specified order using credit.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/OrderId"
@@ -2093,7 +2119,7 @@ paths:
             summary: Pay with a stored card
             description: Pays for the specified order using a stored payment card.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/OrderId"
@@ -2118,7 +2144,7 @@ paths:
             summary: List of all payment cards
             description: Retrieves the list of all payment cards for the logged-in user.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
@@ -2145,7 +2171,7 @@ paths:
             summary: Get a payment card detail
             description: Retrieves the details of a payment card by its ID.
             tags:
-                - Order service
+                - Ordering service
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/PaymentCardId"
