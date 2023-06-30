@@ -50,6 +50,7 @@ paths:
                 - $ref: "#/components/parameters/Page"
                 - $ref: "#/components/parameters/PageSize"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -82,6 +83,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/DomainName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -115,6 +117,7 @@ paths:
                 - $ref: "#/components/parameters/Page"
                 - $ref: "#/components/parameters/PageSize"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -141,6 +144,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/DomainName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -250,6 +254,7 @@ paths:
                 - $ref: "#/components/parameters/DomainName"
                 - $ref: "#/components/parameters/RecordId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -307,6 +312,7 @@ paths:
                 - $ref: "#/components/parameters/DomainName"
                 - $ref: "#/components/parameters/RecordId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -462,6 +468,7 @@ paths:
                 - $ref: "#/components/parameters/DomainName"
                 - $ref: "#/components/parameters/RecordId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -533,6 +540,7 @@ paths:
                 - $ref: "#/components/parameters/Page"
                 - $ref: "#/components/parameters/PageSize"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -570,6 +578,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/IdOrUUID"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -602,6 +611,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -631,6 +641,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/VhostID"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -651,6 +662,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -671,6 +683,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -691,6 +704,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -711,6 +725,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -742,6 +757,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -775,6 +791,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/DatabaseId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -795,6 +812,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/DatabaseId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -827,6 +845,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/DatabaseId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -853,6 +872,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -901,6 +921,7 @@ paths:
                 - $ref: "#/components/parameters/Interval"
                 - $ref: "#/components/parameters/Length"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -937,6 +958,7 @@ paths:
                 - $ref: "#/components/parameters/Interval"
                 - $ref: "#/components/parameters/Length"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1027,6 +1049,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1058,6 +1081,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/MailboxId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1077,6 +1101,7 @@ paths:
                 - $ref: "#/components/parameters/DomainId"
                 - $ref: "#/components/parameters/MailboxId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1104,6 +1129,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/DomainId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1138,6 +1164,7 @@ paths:
                 - $ref: "#/components/parameters/DomainId"
                 - $ref: "#/components/parameters/MailboxId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1172,6 +1199,7 @@ paths:
                 - $ref: "#/components/parameters/Interval"
                 - $ref: "#/components/parameters/Length"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1214,6 +1242,7 @@ paths:
                 - $ref: "#/components/parameters/Interval"
                 - $ref: "#/components/parameters/Length"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1248,6 +1277,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1294,6 +1324,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1327,6 +1358,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/FTPAccountId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1345,6 +1377,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/FTPAccountId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1387,6 +1420,7 @@ paths:
                 - $ref: "#/components/parameters/HostingId"
                 - $ref: "#/components/parameters/FTPAccountId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1414,6 +1448,7 @@ paths:
                 - $ref: "#/components/parameters/Page"
                 - $ref: "#/components/parameters/PageSize"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1445,6 +1480,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1469,6 +1505,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1501,6 +1538,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1527,6 +1565,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1549,6 +1588,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/InvoiceId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1576,6 +1616,7 @@ paths:
                 - $ref: "#/components/parameters/InvoiceId"
                 - $ref: "#/components/parameters/PaymentCardId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1605,6 +1646,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1682,6 +1724,7 @@ paths:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/Type"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -1721,6 +1764,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1777,6 +1821,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1821,6 +1866,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1864,6 +1910,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1902,6 +1949,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/Market"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -1942,6 +1990,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2080,6 +2129,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/OrderId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2100,6 +2150,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/OrderId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2125,6 +2176,7 @@ paths:
                 - $ref: "#/components/parameters/OrderId"
                 - $ref: "#/components/parameters/ByPaymentCardId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2148,6 +2200,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2176,6 +2229,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/PaymentCardId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2197,6 +2251,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2226,6 +2281,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/ServiceId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2249,6 +2305,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/ServiceId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2292,6 +2349,7 @@ paths:
                 - $ref: "#/components/parameters/Page"
                 - $ref: "#/components/parameters/PageSize"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: OK
@@ -2329,6 +2387,7 @@ paths:
                 - User service
             parameters:
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2384,6 +2443,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: OK
@@ -2411,6 +2471,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2475,6 +2536,7 @@ paths:
                 - User service
             parameters:
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2523,6 +2585,7 @@ paths:
                 - $ref: "#/components/parameters/Page"
                 - $ref: "#/components/parameters/PageSize"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2557,6 +2620,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2627,6 +2691,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/BillingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2655,6 +2720,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/BillingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2716,6 +2782,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/BillingId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2766,6 +2833,7 @@ paths:
                 - $ref: "#/components/parameters/Page"
                 - $ref: "#/components/parameters/PageSize"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2800,6 +2868,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2844,6 +2913,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/DomainProfileId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2887,6 +2957,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/DomainProfileId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 required: true
                 content:
@@ -2928,6 +2999,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/DomainProfileId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2958,6 +3030,7 @@ paths:
             parameters:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -2997,6 +3070,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -3015,6 +3089,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -3048,6 +3123,7 @@ paths:
                 - $ref: "#/components/parameters/Interval"
                 - $ref: "#/components/parameters/Length"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -3110,6 +3186,7 @@ paths:
                 - $ref: "#/components/parameters/Interval"
                 - $ref: "#/components/parameters/Length"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -3162,6 +3239,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -3204,6 +3282,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -3245,6 +3324,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "200":
                     description: Success
@@ -3270,6 +3350,7 @@ paths:
                 - $ref: "#/components/parameters/UserId"
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             requestBody:
                 content:
                     application/json:
@@ -3317,6 +3398,7 @@ paths:
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/SnapshotName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "204":
                     description: No Content
@@ -3331,6 +3413,7 @@ paths:
                 - $ref: "#/components/parameters/VpsIdOrName"
                 - $ref: "#/components/parameters/SnapshotName"
                 - $ref: "#/components/parameters/RequiredDate"
+                - $ref: "#/components/parameters/Language"
             responses:
                 "204":
                     description: No Content
@@ -3347,6 +3430,20 @@ components:
                 __password__ -> secret
 
     parameters:
+        Language:
+            in: header
+            name: Accept-Language
+            required: false
+            schema:
+                type: string
+                enum:
+                  - en_us
+                  - sk
+                  - cs_cz
+                  - hu
+            description: |
+                API supports different languages in validation messages.
+
         RequiredDate:
             in: header
             name: date
