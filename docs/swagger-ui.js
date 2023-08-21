@@ -6,6 +6,7 @@ swagger.SwaggerUIBundle({
 	// url: "http://localhost:8000/openapi.yaml",
 	url: 'https://raw.githubusercontent.com/xseman/websupport.openapi/master/openapi.yaml',
 	dom_id: "#swagger-ui",
+	syntaxHighlight: { theme: "idea" },
 	deepLinking: true,
 	persistAuthorization: true,
 	requestInterceptor: websupportAuth,
