@@ -1,17 +1,22 @@
-# Websupport OpenAPI
+# Websupport REST API v1
 
-![Alt text](docs/swagger-ui.png)
+## Why
 
-This specification has been manually created using available [documentation],
-but it's possible that there are errors or missing new features as the API
-evolves over time. I'm making an effort to keep it up to date.
+The actual Websupport API documentation is not in OpenAPI format, which makes it
+hard to integrate to your favourite language or tool. This repository contains
+an OpenAPI 3.0 specification for the Websupport API based on the [documentation]
+which might be outdated or incomplete.
 
 [documentation]: https://rest.websupport.sk/docs/index
 
-I would greatly appreciate any contributions or updates to the OpenAPI file to
-address any issues.
+## OpenAPI
 
-# Auth
+I would greatly appreciate any contributions or updates to the [OpenAPI
+definition][openapi] to address any issues.
+
+[openapi]: ./openapi.yaml
+
+### Auth
 
 See [documentation][auth-documentation] with examples.
 

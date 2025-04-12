@@ -1,6 +1,5 @@
-// @ts-check
-import swagger from "swagger-ui-dist";
-import crypto from "crypto-js";
+import swagger from "https://esm.sh/swagger-ui-dist@5.20";
+import crypto from "https://esm.sh/crypto-js@4.2";
 
 swagger.SwaggerUIBundle({
 	// url: "http://localhost:8000/openapi.yaml",
