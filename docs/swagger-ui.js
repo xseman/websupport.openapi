@@ -1,10 +1,9 @@
-import swagger from "https://esm.sh/swagger-ui-dist@5.20";
+import swagger from "https://esm.sh/swagger-ui-dist@5.26";
 import crypto from "https://esm.sh/crypto-js@4.2";
 
 swagger.SwaggerUIBundle({
 	// url: "http://localhost:8000/openapi.yaml",
-	url: 'https://raw.githubusercontent.com/xseman/websupport.openapi/master/openapi.yaml',
-	dom_id: "#swagger-ui",
+	url: 'https://raw.githubusercontent.com/xseman/websupport.openapi/refs/heads/master/openapi.yaml',
 	syntaxHighlight: { theme: "idea" },
 	deepLinking: true,
 	persistAuthorization: true,
