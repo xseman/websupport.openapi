@@ -1,3 +1,5 @@
 #!/bin/sh
 
-npx @web/dev-server --root-dir ./../ --open /docs/
+bunx @web/dev-server \
+	--root-dir ./../ \
+	--open /docs/

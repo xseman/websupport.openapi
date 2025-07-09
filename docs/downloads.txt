@@ -1,0 +1,7 @@
+https://rest.websupport.sk/docs/v1.user
+https://rest.websupport.sk/docs/v1.service
+https://rest.websupport.sk/docs/v1.invoice
+https://rest.websupport.sk/docs/v1.order
+https://rest.websupport.sk/docs/v1.zone
+https://rest.websupport.sk/docs/v1.hosting
+https://rest.websupport.sk/docs/v1.vps
